@@ -1,0 +1,325 @@
+input {
+  outline: none;
+}
+
+.udmercy-logo-wrapper-mobile {
+  display: none;
+}
+
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 130px;
+}
+
+.signup-title {
+  font-weight: 600;
+  font-size: 32px;
+  width: 400px;
+  margin-top: 0px;
+  margin-bottom: 37px;
+  text-align: left;
+}
+
+.input-field-wrapper {
+  display: flex;
+  width: 850px;
+  flex-wrap: wrap;
+  gap: 42px;
+  justify-content: flex-start;
+}
+
+.input-field-foapa-wrapper {
+  display: flex;
+  width: auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  row-gap: 30px;
+  justify-content: flex-start;
+}
+
+.udmercy-logo {
+  width: 70%;
+  max-width: 14rem;
+  padding: 40px 20px;
+}
+
+.input-field span {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.input-field .error-field,
+.work-email-section .error-field {
+  color: rgb(238, 0, 0);
+  font-size: 12px;
+  max-width: 200px;
+}
+
+.account-success-message {
+  font-weight: 400;
+  margin-top: 20px;
+  font-size: 13px;
+  color: rgb(0, 176, 0);
+}
+
+.account-loading-message {
+  font-weight: 400;
+  margin-top: 20px;
+  font-size: 13px;
+  color: black;
+}
+
+.account-error-message {
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 20px;
+  color: rgb(179, 6, 6);
+}
+
+.udmercy-logo-wrapper {
+  border: 1px solid #ffffff;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-section {
+  height: auto;
+  width: 960px;
+}
+
+.foapa-section label {
+  font-size: 14px;
+}
+
+.input-FOAPA-field input,
+.input-FOAPA-field select {
+  width: 90px;
+  height: 36px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #f7f7f7;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
+  border-radius: 5px;
+  display: inline-flex;
+}
+
+.input-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 252px;
+  height: 30px;
+  justify-content: space-between;
+}
+
+.input-field label {
+  padding-top: 10px;
+}
+
+.input-field input,
+.input-field select {
+  padding-left: 20px;
+  width: 150px;
+  box-sizing: border-box;
+  height: 36px;
+  padding-right: 20px;
+  font-size: 13px;
+  background: #ffffff;
+  border: 1px solid #f7f7f7;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
+  border-radius: 5px;
+}
+
+.input-field label {
+  font-size: 14px;
+  width: 82px;
+}
+
+.add-foapa-button {
+  background-color: var(--udmercy-red);
+  background: #a5093e;
+  padding: 10px;
+  border: solid 1px var(--udmercy-red);
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 2px;
+  margin-bottom: auto;
+  height: 36px;
+  display: inline-flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.employment-number-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: 15px 7.5px;
+}
+
+.employment-number-section h3 {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0px;
+
+  /* color: #474747; */
+}
+
+#employment-number {
+  padding-left: 30px;
+}
+
+.relative {
+  position: relative;
+}
+
+.signup-button {
+  background-color: var(--udmercy-blue);
+  color: white;
+  padding: 10px 70px;
+  border: solid 1px;
+  width: 232px;
+  height: 50px;
+  margin-top: 20px;
+  cursor: pointer;
+  background: #a5093e;
+  border-radius: 26px;
+}
+
+.signup-form {
+  display: flex;
+  gap: 7px;
+  row-gap: 50px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.trademark-text {
+  font-weight: 400;
+  font-size: 13px;
+  color: gray;
+}
+
+.continue-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.added-foapa-number h3 {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+@media (max-width: 1350px) {
+  .udmercy-logo {
+    display: none;
+  }
+
+  .left-section {
+    display: none;
+  }
+}
+
+@media (max-width: 1135px) {
+  .right-section {
+    padding-left: 75px;
+  }
+}
+
+@media (max-width: 900px) {
+  .input-field-wrapper {
+    width: auto;
+  }
+
+  .left-section {
+    display: none;
+  }
+
+  .right-section {
+    width: 100%;
+  }
+}
+
+@media (max-width: 630px) {
+  .udmercy-logo-wrapper-mobile {
+    display: flex;
+    height: auto;
+    justify-content: center;
+    margin-top: 80px;
+  }
+
+  .udmercy-logo-mobile {
+    width: 100px;
+  }
+
+  .right-section {
+    height: 100%;
+    width: 100vw;
+    padding-left: 0px;
+  }
+
+  .signup-title {
+    font-size: 20px;
+    text-align: center;
+    width: 350px;
+    margin: auto;
+    line-height: 45px;
+    margin-bottom: 30px;
+    margin-top: 50px;
+  }
+
+  .input-field label {
+    width: auto;
+  }
+
+  .signup-form {
+    margin-bottom: 40px;
+  }
+
+  .input-field input,
+  .input-field select {
+    text-align: center;
+  }
+
+  .signup-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-field {
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+    height: auto;
+    align-items: center;
+  }
+
+  .input-field-wrapper {
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .already-has-account {
+    margin-bottom: 60px;
+  }
+
+  .input-field-foapa-wrapper {
+    flex-direction: column;
+  }
+
+  .continue-buttons {
+    justify-content: center;
+    flex-direction: column;
+  }
+}

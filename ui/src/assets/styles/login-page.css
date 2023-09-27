@@ -1,0 +1,190 @@
+input {
+  outline: none;
+}
+
+.email-help {
+  font-weight: 400;
+  margin: 0px;
+  font-size: 14px;
+  margin-bottom: 30px;
+  color: gray;
+}
+
+.work-email-input-field input {
+  font-size: 13px;
+  border: none;
+}
+
+.error-field {
+  color: rgb(238, 0, 0);
+  font-size: 12px;
+  max-width: 200px;
+}
+
+.login-field span {
+  height: 65px;
+  width: 255px;
+}
+
+.work-email-input-field {
+  padding-left: 20px;
+  width: auto;
+  box-sizing: border-box;
+  height: 36px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #f7f7f7;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
+  border-radius: 5px;
+}
+
+.work-email-descriptor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(6px, -41px);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.btn-link {
+  font-size: 14px;
+  text-decoration: underline;
+  color: purple;
+  cursor: pointer;
+}
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.login-title {
+  font-weight: 600;
+  font-size: 25px;
+  margin-bottom: 4px;
+}
+
+.udmercy-logo {
+  width: 100px;
+  padding: 40px 20px;
+}
+
+.udmercy-logo-wrapper {
+  border: 1px solid #ffffff;
+  border-radius: 9999px;
+  height: 140px;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 9px rgba(184, 184, 184, 0.38);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-field {
+  width: 365px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+#work-email {
+  border: none;
+  width: 100px;
+  font-size: 13px;
+}
+
+.login-password-input {
+  box-sizing: border-box;
+  padding-left: 20px;
+  width: 100%;
+  height: 36px;
+  background: #ffffff;
+  border: 1px solid #f7f7f7;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
+  border-radius: 5px;
+}
+
+.login-field label {
+  width: auto;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.login-button {
+  background-color: var(--udmercy-blue);
+  color: white;
+  padding: 10px 70px;
+  border: solid 1px;
+  width: 232px;
+  height: 50px;
+  margin-top: 20px;
+  cursor: pointer;
+  background: #a5093e;
+  border-radius: 26px;
+}
+
+@media (max-width: 610px) {
+  .login-title {
+    font-size: 20px;
+    text-align: center;
+    width: 350px;
+    margin: 0px;
+    line-height: 45px;
+    margin-top: 0px;
+  }
+  .login-field {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .error-field {
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 9px;
+  }
+
+  .login-field input {
+    margin-left: 0px;
+    text-align: center;
+    padding-left: 0px;
+  }
+  .login-field label {
+    width: auto;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .udmercy-logo {
+    width: 70px;
+    padding: 40px 20px;
+  }
+
+  .udmercy-logo-wrapper {
+    border: 1px solid #ffffff;
+    border-radius: 9999px;
+    height: 110px;
+    padding: 30px;
+  }
+
+  .login-page {
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

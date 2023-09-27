@@ -1,0 +1,468 @@
+.dashboard-page {
+  margin-top: 30px;
+  display: grid;
+  margin-bottom: 40px;
+  grid-template-columns: 25% 50% 25%;
+  gap: 0px;
+}
+
+.user-icon {
+  display: none;
+}
+
+/* FOAPA SECTION */
+
+.foapa-number-section {
+  display: flex;
+  padding-top: 23px;
+  align-items: center;
+  flex-direction: column;
+}
+
+.foapa-number-section h3,
+.user-information-section h3,
+.reimbursement-section h3 {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.foapa-number {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 31px;
+  box-sizing: border-box;
+
+  width: 300px;
+  height: auto;
+  border: 1px solid rgba(246, 246, 246, 0.44);
+  box-shadow: 0 2px 2px #5353532b;
+  border-radius: 5px;
+}
+
+.foapa-number-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.foapa-number h3 {
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.foapa-number input {
+  outline: none;
+  border: none;
+}
+
+.foapa-number img {
+  width: 15px;
+  cursor: pointer;
+}
+
+.foapa-number-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.add-foapa-button {
+  border: none;
+  background: white;
+}
+
+/* MIDDLE SECTION - REIMBURSEMENT SECTION  */
+
+.reimbursement-wrapper-list .reimbursement {
+  border-radius: 10px;
+  height: 65px;
+  position: relative;
+  padding: 0px 30px;
+  border: 1px solid rgba(246, 246, 246, 0.44);
+  box-shadow: 0 2px 2px #5353532b;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 30px;
+  row-gap: 20px;
+}
+
+.view-choice {
+  display: flex;
+  gap: 10px;
+}
+
+.add-reimbursement-ticket-button {
+  border: 0px;
+  padding: 0px 20px;
+  width: 300px;
+  font-weight: 300;
+  font-size: 12.5px;
+}
+
+.reimbursement-wrapper-list .reimbursement .total-amount {
+  font-size: 14px;
+}
+
+.reimbursement-wrapper-list {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+}
+
+.reimbursement-wrapper-list .reimbursement-buttons {
+  position: absolute;
+  bottom: 13px;
+  right: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.reimbursement-wrapper-list .reimbursement-buttons button {
+  background-color: var(--udmercy-red);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  height: 40px;
+  cursor: pointer;
+  border: solid 1px var(--udmercy-red);
+  padding: 8px 20px;
+}
+
+.reimbusement-search {
+  width: 100%;
+  padding-left: 30px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: 50px;
+  border: 1px solid #f7f7f7;
+  outline: none;
+  box-shadow: 0px 2px 2px rgb(83 83 83 / 17%);
+}
+
+.reimbursement-search-input {
+  display: flex;
+  gap: 10px;
+}
+
+.search-button,
+.add-button {
+  background: var(--udmercy-blue);
+  height: auto;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 61px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-button {
+  height: 44px;
+}
+
+.search-icon {
+  width: 25px;
+}
+
+.add-icon {
+  width: 16px;
+}
+
+.search-filters {
+  display: flex;
+  gap: 25px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.reimbursement-wrapper-list .reimbursement h3,
+.reimbursement-wrapper-list .reimbursement h4,
+.reimbursement-wrapper-list .reimbursement h5 {
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0px;
+}
+
+.reimbursement-wrapper-list .reimbursement h3 {
+  font-weight: 500;
+}
+
+.filter {
+  background-color: var(--udmercy-blue);
+  border-radius: 30px;
+  color: white;
+  cursor: pointer;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-reimbursement-link {
+  font-weight: 400;
+  color: var(--udmercy-blue);
+}
+
+.selected {
+  background-color: var(--udmercy-red);
+}
+
+.filter h3 {
+  font-weight: 300;
+  font-size: 12.5px;
+  padding: 0px 20px;
+}
+
+.reimbursement-wrapper-grid .reimbursement {
+  width: 49%;
+  padding: 0px 30px;
+  height: 190px;
+  box-sizing: border-box;
+  color: white;
+  background: #002d72;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  padding-top: 30px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.reimbursement-wrapper-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.reimbursement-wrapper-grid .reimbursement h3,
+.reimbursement-wrapper-grid .reimbursement h4,
+.reimbursement-wrapper-grid .reimbursement h5 {
+  margin: 0px;
+}
+
+.reimbursement-wrapper-grid .reimbursement h4 {
+  font-weight: 400;
+  font-size: 14.5px;
+}
+.reimbursement-wrapper-grid .reimbursement h5 {
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.reimbursement-wrapper-grid .reimbursement .reimbursement-buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: auto;
+  position: absolute;
+  gap: 10px;
+  bottom: 20px;
+  right: 20px;
+}
+
+.reimbursement-wrapper-grid .reimbursement .reimbursement-buttons button {
+  background-color: var(--udmercy-red);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  height: 40px;
+  cursor: pointer;
+  border: solid 1px var(--udmercy-red);
+  padding: 8px 20px;
+}
+
+.reimbursement-wrapper-grid
+  .reimbursement
+  .reimbursement-buttons
+  button:nth-child(2) {
+  background-color: white;
+  border: white;
+  color: black;
+}
+
+.reimbursement-wrapper-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 20px;
+  height: auto;
+  max-height: 590px;
+  overflow: auto;
+}
+
+/* .reimbursement-wrapper::-webkit-scrollbar {
+  display: none;
+} */
+
+/* USER INFORMATION PORTION */
+.user-information-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-information-header {
+  background: var(--udmercy-blue);
+  width: 300px;
+  text-align: center;
+  color: white;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.user-information-header h3 {
+  font-weight: 400;
+}
+
+.user-information-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.user-information-wrapper div {
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgb(83 83 83 / 17%);
+  width: 300px;
+  text-align: center;
+  height: 59px;
+  padding: 10px 0px;
+  border: 1px solid rgba(246, 246, 246, 0.44);
+}
+
+.user-information-wrapper h3 {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.user-information-section button {
+  background-color: var(--udmercy-red);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  height: 45px;
+  cursor: pointer;
+  border: solid 1px var(--udmercy-red);
+  padding: 8px 30px;
+  box-shadow: 0px 2px 2px rgb(83 83 83 / 17%);
+}
+
+.add-reimbursement-prompt {
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+.reimbursement-wrapper-grid .reimbursement .total-amount {
+  position: absolute;
+  bottom: 20px;
+  background-color: #a5093e;
+  border-radius: 19px;
+  min-width: 50px;
+  padding: 0px 17px;
+  box-sizing: border-box;
+  width: auto;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+@media (max-width: 1400px) {
+  .reimbursement-wrapper-grid .reimbursement {
+    width: 100%;
+  }
+
+  .reimbursement-wrapper-list .reimbursement-buttons {
+    position: initial;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .reimbursement-wrapper-list .reimbursement {
+    height: auto;
+    padding: 20px 30px;
+  }
+
+  .dashboard-page {
+    grid-template-columns: 30% 40% 30%;
+  }
+}
+
+@media (max-width: 1218px) {
+  .user-information-section {
+    display: none;
+  }
+
+  .dashboard-page {
+    grid-template-columns: 30% 55%;
+    gap: 50px;
+  }
+
+  .foapa-number-wrapper {
+    width: 80%;
+  }
+
+  .foapa-number {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .user-icon {
+    height: 30px;
+    /* box-shadow: 0 2px 2px #5353532b; */
+    object-fit: contain;
+    border-radius: 90px;
+    opacity: 0.8;
+    cursor: pointer;
+    padding: 8px;
+    display: block;
+    position: absolute;
+    top: 35px;
+    right: 40px;
+    width: 30px;
+  }
+  .foapa-number-section {
+    display: none;
+  }
+
+  .dashboard-page {
+    grid-template-columns: 100%;
+    padding: 0px 40px;
+  }
+}
+
+@media (max-width: 500px) {
+  .view-choice {
+    flex-direction: column;
+  }
+
+  .filter h3 {
+    font-size: 11.5px;
+  }
+
+  .search-filters {
+    gap: 14px;
+    column-gap: 9px;
+  }
+}
