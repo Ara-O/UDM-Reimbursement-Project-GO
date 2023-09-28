@@ -14,6 +14,7 @@ type TokenData struct {
 }
 
 func GetUserDataFromRedis(token TokenData) (UserData, error) {
+	var userData UserData
 	db := database.GetRedisDatabaseConnection()
 
 	//Get the stored user data from redis
@@ -22,9 +23,13 @@ func GetUserDataFromRedis(token TokenData) (UserData, error) {
 		return UserData{}, err
 	}
 
-	fmt.Println(val)
+	//
+	err = json.Unmarshal([]byte(val), &userData)
+	if err != nil {
+		return UserData{}, err
+	}
 
-	return UserData{}, nil
+	return userData, nil
 }
 
 func VerifyUserRegistrationToken(w http.ResponseWriter, r *http.Request) {
@@ -45,5 +50,13 @@ func VerifyUserRegistrationToken(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(userData)
+	formattedUserData, err := json.Marshal(&userData)
+
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
+
+	// Success!
+	w.WriteHeader(200)
+	w.Write([]byte(formattedUserData))
 }
