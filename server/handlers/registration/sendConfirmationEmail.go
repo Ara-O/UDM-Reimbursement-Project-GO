@@ -86,7 +86,7 @@ func sendEmail(userData *UserData, id string) error {
 	<h4 style="font-weight: 300">Hello %s,</h4>
 	<h4 style="font-weight: 300">Thanks for signing up for the University of Detroit Mercy Reimbursement System!</h4>
 	<h4 style="font-weight: 300">You can verify your account with this link</h4>
-	<a href="%s"><button style="font-weight: 300; color: white; text-decoration: none; background: #a5093e; padding: 7px 20px">Here</button></a>
+	<a href="%s"><button style="font-weight: 300; color: white; text-decoration: none; background: #a5093e; padding: 7px 20px; border: none">Here</button></a>
 	</div>`, userData.FirstName, url)
 
 	// Set the email body

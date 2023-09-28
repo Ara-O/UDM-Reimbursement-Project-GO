@@ -1,0 +1,85 @@
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 130px;
+}
+
+.udmercy-logo-wrapper-mobile {
+    display: none;
+}
+
+.signup-page-foapa {
+    display: flex;
+    align-items: center;
+}
+
+.signup-page-foapa h3 {
+    font-weight: 400;
+    font-size: 14.5px;
+}
+
+.signup-title {
+    font-weight: 600;
+    font-size: 32px;
+    width: 400px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    text-align: left;
+}
+
+.udmercy-logo {
+    width: 70%;
+    max-width: 14rem;
+    padding: 40px 20px;
+}
+
+.udmercy-logo-wrapper {
+    border: 1px solid #ffffff;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.already-have-account {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.required-field-note {
+    font-weight: 300;
+}
+
+@media (max-width: 1350px) {
+    .left-section {
+        display: none;
+    }
+
+    .udmercy-logo {
+        display: none;
+    }
+}
+
+@media (max-width: 780px) {
+    .signup-title {
+        font-size: 20px;
+        text-align: center;
+        width: 350px;
+        margin: auto;
+        line-height: 45px;
+        margin-top: 50px;
+    }
+
+    .udmercy-logo-wrapper-mobile {
+        display: flex;
+        height: auto;
+        justify-content: center;
+        margin-top: 80px;
+    }
+
+    .udmercy-logo-mobile {
+        width: 100px;
+    }
+}

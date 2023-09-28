@@ -6,17 +6,11 @@ input {
   display: none;
 }
 
-.signup-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  gap: 130px;
-}
 
 .validating-signup-field {
   font-weight: 400;
-  margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
 .error-signup-message {
@@ -25,14 +19,6 @@ input {
   color: red;
 }
 
-.signup-title {
-  font-weight: 600;
-  font-size: 32px;
-  width: 400px;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  text-align: left;
-}
 
 .input-field-wrapper {
   display: flex;
@@ -42,19 +28,6 @@ input {
   justify-content: flex-start;
 }
 
-.udmercy-logo {
-  width: 70%;
-  max-width: 14rem;
-  padding: 40px 20px;
-}
-
-.udmercy-logo-wrapper {
-  border: 1px solid #ffffff;
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .right-section {
   height: auto;
@@ -207,7 +180,7 @@ input {
   border: solid 1px;
   width: 232px;
   height: 50px;
-  margin-top: 25px;
+  margin-top: 10px;
   cursor: pointer;
   background: #a5093e;
   border-radius: 26px;
@@ -232,9 +205,6 @@ input {
   font-weight: 300;
 }
 
-.already-have-account {
-  font-size: 14.5px;
-}
 
 .next-arrow {
   width: 20px;
@@ -281,9 +251,6 @@ input {
     display: none;
   }
 
-  .left-section {
-    display: none;
-  }
 }
 
 @media (max-width: 1135px) {
@@ -295,10 +262,6 @@ input {
 @media (max-width: 900px) {
   .input-field-wrapper {
     width: auto;
-  }
-
-  .left-section {
-    display: none;
   }
 
   .right-section {
@@ -329,30 +292,11 @@ input {
     padding: 0px 20px;
   }
 
-  .udmercy-logo-wrapper-mobile {
-    display: flex;
-    height: auto;
-    justify-content: center;
-    margin-top: 80px;
-  }
-
-  .udmercy-logo-mobile {
-    width: 100px;
-  }
 
   .right-section {
     height: 100%;
     width: 100vw;
     padding-left: 0px;
-  }
-
-  .signup-title {
-    font-size: 20px;
-    text-align: center;
-    width: 350px;
-    margin: auto;
-    line-height: 45px;
-    margin-top: 50px;
   }
 
   .input-field label {

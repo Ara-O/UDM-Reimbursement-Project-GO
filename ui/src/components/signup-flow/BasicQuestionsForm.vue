@@ -67,9 +67,7 @@
     </div>
     <button class="signup-button" type="submit">Continue</button>
   </Form>
-  <h5 class="validating-signup-field" v-if="validatingSignupFields">
-    Validating Employment Number...
-  </h5>
+
   <h5 class="error-signup-message" v-if="signupError">
     {{ signupErrorMessage }}
   </h5>
@@ -90,7 +88,6 @@ const { userSignupData } = defineProps<{
   userSignupData: UserDataPreVerification;
 }>();
 
-let validatingSignupFields = ref<boolean>(false);
 let signupError = ref<boolean>(false);
 let signupErrorMessage = ref<string>("");
 const departments = [
@@ -108,31 +105,10 @@ const departments = [
   "Robotics and Mechatronic Systems Engineering",
 ];
 
-const emits = defineEmits(["continue"]);
+const emits = defineEmits(["formSubmitted"]);
 
 function progress() {
-  validatingSignupFields.value = true;
-  signupError.value = false;
-  signupErrorMessage.value = "";
-
-  axios
-    .post(
-      "https://udm-reimbursement-project.onrender.com/api/verifySignupBasicInformation",
-      {
-        employmentNumber: userSignupData.employment_number,
-        workEmail: userSignupData.work_email,
-      }
-    )
-    .then((res) => {
-      emits("continue");
-      validatingSignupFields.value = false;
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    })
-    .catch((err) => {
-      signupError.value = true;
-      signupErrorMessage.value = err.response.data.message;
-      validatingSignupFields.value = false;
-    });
+  emits('formSubmitted')
 }
 </script>
 
