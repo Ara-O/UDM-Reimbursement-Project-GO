@@ -1,16 +1,18 @@
 package registration
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
-	"github.com/go-chi/jwtauth/v5"
+	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/database"
 	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
-	"github.com/mitchellh/mapstructure"
 	"gopkg.in/gomail.v2"
 )
 
@@ -21,6 +23,10 @@ type UserData struct {
 	WorkEmail        string `json:"work_email" validate:"required,alphanum" mapstructure:"work_email"`
 	EmploymentNumber int64  `json:"employment_number" validate:"required,number" mapstructure:"employment_number"`
 	Department       string `json:"department" validate:"required" mapstructure:"department"`
+}
+
+func (u *UserData) MarshalBinary() ([]byte, error) {
+	return json.Marshal(u)
 }
 
 func loadEnvironmentVariables() error {
@@ -43,27 +49,18 @@ func validateStruct(userData *UserData) error {
 	return nil
 }
 
-func createJWT(userData *UserData) (string, error) {
-	var tokenAuth *jwtauth.JWTAuth
+func storeUserDataInRedis(userData *UserData) (string, error) {
+	db := database.GetRedisDatabaseConnection()
+	userId := uuid.New().String()
 
-	tokenAuth = jwtauth.New("HS256", []byte(os.Getenv("JWT_TOKEN_KEY")), nil)
-
-	formattedUserData := make(map[string]interface{})
-
-	//Convert the userData struct to a map[string]interface{}
-	if err := mapstructure.Decode(userData, &formattedUserData); err != nil {
-		fmt.Println(err)
-		return "", err
-	}
-
-	_, tokenString, err := tokenAuth.Encode(formattedUserData)
+	err := db.Set(context.Background(), userId, userData, 15*time.Minute).Err()
 
 	if err != nil {
 		fmt.Println(err)
 		return "", err
 	}
 
-	return tokenString, nil
+	return userId, nil
 }
 
 func sanitizeUserData(userData *UserData) UserData {
@@ -74,17 +71,14 @@ func sanitizeUserData(userData *UserData) UserData {
 	return *userData
 }
 
-func sendEmail(userData *UserData, token string) error {
+func sendEmail(userData *UserData, id string) error {
 	// Create and send a new message
 	m := gomail.NewMessage()
 	m.SetHeader("From", "UDM Reimbursement Team <ara@araoladipo.dev>")
 	m.SetHeader("To", userData.WorkEmail)
 	m.SetHeader("Subject", "Verify your UDM Email")
 
-	// Alter token so that it is embeddable in a url
-	token = strings.ReplaceAll(token, ".", "$")
-
-	url := fmt.Sprintf("http://localhost:5173/complete-verification/%s", token)
+	url := fmt.Sprintf("http://localhost:5173/complete-verification/%s", id)
 
 	mailTemplate := fmt.Sprintf(`
 	<div style="background: white">
@@ -137,19 +131,15 @@ func SendConfirmationEmail(w http.ResponseWriter, r *http.Request) {
 	// Sanitize user data
 	userData = sanitizeUserData(&userData)
 
-	//TODO: Replace with redis
-	//Create JWTs
-	token, err := createJWT(&userData)
-
-	fmt.Println(token)
-
+	// Store user data in redis to
+	cacheID, err := storeUserDataInRedis(&userData)
 	if err != nil {
 		fmt.Println(err)
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
-	if err := sendEmail(&userData, token); err != nil {
+	if err := sendEmail(&userData, cacheID); err != nil {
 		fmt.Println(err)
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 		return
