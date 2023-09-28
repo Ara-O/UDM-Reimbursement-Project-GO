@@ -10,16 +10,6 @@
     display: none;
 }
 
-.signup-page-foapa {
-    display: flex;
-    align-items: center;
-}
-
-.signup-page-foapa h3 {
-    font-weight: 400;
-    font-size: 14.5px;
-}
-
 .signup-title {
     font-weight: 600;
     font-size: 32px;
@@ -43,8 +33,11 @@
     align-items: center;
 }
 
+.account-feedback-message {
+    margin-top: 20px
+}
+
 .already-have-account {
-    margin-top: 10px;
     font-size: 14px;
 }
 
@@ -63,6 +56,14 @@
 }
 
 @media (max-width: 780px) {
+    .signup-page {
+        height: auto;
+    }
+
+    .account-feedback-message {
+        text-align: center;
+    }
+
     .signup-title {
         font-size: 20px;
         text-align: center;

@@ -13,12 +13,13 @@
             <!--  -->
             <slot></slot>
             <!--  -->
-            <span class="account-feedback-message">
-                <router-link to="/" class="already-have-account">Already have an Account</router-link>
+            <div class="account-feedback-message">
+                <router-link to="/" class="already-have-account">Already have an
+                    Account</router-link>
                 <h5 class="required-field-note">
                     Note: All required fields (*) must be filled
                 </h5>
-            </span>
+            </div>
         </section>
     </section>
 </template>

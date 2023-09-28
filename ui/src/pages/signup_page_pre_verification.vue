@@ -1,15 +1,14 @@
 <template>
-  <registration-layout>
+  <registration-layout v-if="!basicQuestionsFormIsComplete">
     <section class="signup-form">
       <basic-questions-form :user-signup-data="userSignupData" @form-submitted="register" />
-      <h5 class="validating-signup-field" v-if="user_is_registering">
-        Registering...
+      <h5 class="validating-signup-field" v-if="registrationInProgress">
+        {{ progressMessage }}...
       </h5>
     </section>
-
-    <signup-verification-message v-if="basicQuestionsSectionIsFinished"
-      :user_email="userSignupData.work_email"></signup-verification-message>
   </registration-layout>
+  <signup-verification-message v-if="basicQuestionsFormIsComplete"
+    :user_email="userSignupData.work_email"></signup-verification-message>
 </template>
 
 <script lang="ts" setup>
@@ -22,8 +21,9 @@ import { useRouter } from "vue-router";
 import { UserDataPreVerification } from "../types/types";
 
 const router = useRouter();
-let basicQuestionsSectionIsFinished = ref<boolean>(false);
-let user_is_registering = ref<boolean>(false);
+let basicQuestionsFormIsComplete = ref<boolean>(false);
+let registrationInProgress = ref<boolean>(false);
+let progressMessage = ref<string>("");
 let userSignupData = reactive<UserDataPreVerification>({
   first_name: "oladipea",
   last_name: "bobbingon",
@@ -33,8 +33,13 @@ let userSignupData = reactive<UserDataPreVerification>({
   phone_number: 3232223323,
 });
 
+function updateProgressMessage(message: string) {
+  progressMessage.value = message
+  registrationInProgress.value = true
+}
+
 function register() {
-  user_is_registering.value = true
+  updateProgressMessage("Verifying information...")
   axios
     .post(
       "https://udm-reimbursement-project.onrender.com/api/verifySignupBasicInformation",
@@ -43,26 +48,25 @@ function register() {
         workEmail: userSignupData.work_email,
       }
     )
-    .then((res) => {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    .then(() => {
+      sendConfirmationEmail()
     })
     .catch((err) => {
-
+      updateProgressMessage(err?.response?.data || "There was an error registering, please try again")
     });
 }
 
 function sendConfirmationEmail() {
+  updateProgressMessage("Registering user...")
   axios
     .post(
       `${import.meta.env.VITE_API_URL}/api/send-confirmation-email`, userSignupData,
     )
     .then(() => {
-      basicQuestionsSectionIsFinished.value = true;
-      // verifyingInformation.value = true;
+      basicQuestionsFormIsComplete.value = true;
     })
     .catch((err) => {
-      console.log(err)
-      alert(err?.response?.data || "An error has occured, please try again");
+      updateProgressMessage(err?.response?.data || "An error has occured, please try again later");
     });
 }
 
