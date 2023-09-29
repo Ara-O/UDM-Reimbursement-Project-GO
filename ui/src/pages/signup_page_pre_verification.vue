@@ -38,22 +38,22 @@ function updateProgressMessage(message: string) {
   registrationInProgress.value = true
 }
 
-function register() {
+async function register() {
   updateProgressMessage("Verifying information...")
-  axios
-    .post(
-      "https://udm-reimbursement-project.onrender.com/api/verifySignupBasicInformation",
-      {
-        employmentNumber: userSignupData.employment_number,
-        workEmail: userSignupData.work_email,
-      }
-    )
-    .then(() => {
-      sendConfirmationEmail()
-    })
-    .catch((err) => {
-      updateProgressMessage(err?.response?.data || "There was an error registering, please try again")
-    });
+  try {
+    await axios
+      .post(
+        "https://udm-reimbursement-project.onrender.com/api/verifySignupBasicInformation",
+        {
+          employmentNumber: userSignupData.employment_number,
+          workEmail: userSignupData.work_email,
+        }
+      )
+
+    sendConfirmationEmail()
+  } catch (err: any) {
+    updateProgressMessage(err?.response?.data || "There was an error registering, please try again")
+  }
 }
 
 function sendConfirmationEmail() {
