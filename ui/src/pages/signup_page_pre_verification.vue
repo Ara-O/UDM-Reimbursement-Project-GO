@@ -27,7 +27,7 @@ let progressMessage = ref<string>("");
 let userSignupData = reactive<UserDataPreVerification>({
   first_name: "oladipea",
   last_name: "bobbingon",
-  work_email: "bobby",
+  work_email: "oladipea",
   employment_number: 21324324,
   department: "Computer Science",
   phone_number: 3232223323,

@@ -72,10 +72,10 @@ function registerUser() {
       userSignupData
     )
     .then((res) => {
-      localStorage.setItem("token", res.data.token);
-      axios.defaults.headers.common["authorization"] =
-        localStorage.getItem("token");
-      router.push("/dashboard");
+      // localStorage.setItem("token", res.data.token);
+      // axios.defaults.headers.common["authorization"] =
+      //   localStorage.getItem("token");
+      // router.push("/dashboard");
     })
     .catch((err) => {
       alert(err.response.data.message);

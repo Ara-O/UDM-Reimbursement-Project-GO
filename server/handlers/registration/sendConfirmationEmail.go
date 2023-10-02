@@ -16,7 +16,7 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-type UserData struct {
+type UserDataPreVerification struct {
 	FirstName        string `json:"first_name" validate:"required,min=2,max=50" mapstructure:"first_name"`
 	LastName         string `json:"last_name" validate:"required,min=2,max=50" mapstructure:"last_name"`
 	PhoneNumber      int64  `json:"phone_number" validate:"required,number" mapstructure:"phone_number"`
@@ -25,7 +25,7 @@ type UserData struct {
 	Department       string `json:"department" validate:"required" mapstructure:"department"`
 }
 
-func (u *UserData) MarshalBinary() ([]byte, error) {
+func (u *UserDataPreVerification) MarshalBinary() ([]byte, error) {
 	return json.Marshal(u)
 }
 
@@ -37,7 +37,7 @@ func loadEnvironmentVariables() error {
 	return nil
 }
 
-func validateStruct(userData *UserData) error {
+func validateStruct(userData *UserDataPreVerification) error {
 	validate := validator.New(validator.WithRequiredStructEnabled())
 	err := validate.Struct(userData)
 
@@ -49,7 +49,7 @@ func validateStruct(userData *UserData) error {
 	return nil
 }
 
-func storeUserDataInRedis(userData *UserData) (string, error) {
+func storeUserDataInRedis(userData *UserDataPreVerification) (string, error) {
 	db := database.GetRedisDatabaseConnection()
 	userId := uuid.New().String()
 
@@ -63,7 +63,7 @@ func storeUserDataInRedis(userData *UserData) (string, error) {
 	return userId, nil
 }
 
-func sanitizeUserData(userData *UserData) UserData {
+func sanitizeUserData(userData *UserDataPreVerification) UserDataPreVerification {
 	userData.FirstName = strings.TrimSpace(userData.FirstName)
 	userData.LastName = strings.TrimSpace(userData.LastName)
 	userData.WorkEmail = strings.ToLower(strings.TrimSpace(userData.WorkEmail))
@@ -71,7 +71,7 @@ func sanitizeUserData(userData *UserData) UserData {
 	return *userData
 }
 
-func sendEmail(userData *UserData, id string) error {
+func sendEmail(userData *UserDataPreVerification, id string) error {
 	// Create and send a new message
 	m := gomail.NewMessage()
 	m.SetHeader("From", "UDM Reimbursement Team <ara@araoladipo.dev>")
@@ -112,7 +112,7 @@ func SendConfirmationEmail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Read data from request
-	var userData UserData
+	var userData UserDataPreVerification
 
 	if err := json.NewDecoder(r.Body).Decode(&userData); err != nil {
 		fmt.Println(err)

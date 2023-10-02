@@ -13,20 +13,22 @@ type TokenData struct {
 	Token string `json:"token"`
 }
 
-func GetUserDataFromRedis(token TokenData) (UserData, error) {
-	var userData UserData
+// TODO: MAKE ALL THIS A MIDDLEWARE
+
+func GetUserDataFromRedis(token TokenData) (UserDataPreVerification, error) {
+	var userData UserDataPreVerification
 	db := database.GetRedisDatabaseConnection()
 
 	//Get the stored user data from redis
 	val, err := db.Get(context.Background(), token.Token).Result()
 	if err != nil {
-		return UserData{}, err
+		return UserDataPreVerification{}, err
 	}
 
 	//
 	err = json.Unmarshal([]byte(val), &userData)
 	if err != nil {
-		return UserData{}, err
+		return UserDataPreVerification{}, err
 	}
 
 	return userData, nil
