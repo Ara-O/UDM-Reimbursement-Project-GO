@@ -11,6 +11,10 @@ import (
 var ctx = context.Background()
 var redisDB *redis.Client
 
+func startMongoDatabase() error {
+	return nil
+}
+
 func startRedisDatabase() error {
 	url := os.Getenv("REDIS_URL")
 

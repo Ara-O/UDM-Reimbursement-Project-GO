@@ -116,7 +116,7 @@ onMounted(() => {
     })
     .catch((err) => {
       console.log(err);
-      alert(err?.response?.data?.message || "Expired registration token, please sign up again");
+      alert(err?.response?.data || "An error has occured, please restart the registration process");
       router.push("/signup");
     });
 

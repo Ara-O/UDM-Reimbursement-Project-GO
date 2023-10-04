@@ -13,17 +13,8 @@ import (
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/models"
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
-	"github.com/joho/godotenv"
 	"gopkg.in/gomail.v2"
 )
-
-func loadEnvironmentVariables() error {
-	if err := godotenv.Load(); err != nil {
-		fmt.Println("Error reading environment variables")
-		return err
-	}
-	return nil
-}
 
 func validateStruct(userData *models.UserDataPreVerification) error {
 	validate := validator.New(validator.WithRequiredStructEnabled())
@@ -94,11 +85,6 @@ func sendEmail(userData *models.UserDataPreVerification, id string) error {
 
 // Main function
 func SendConfirmationEmail(w http.ResponseWriter, r *http.Request) {
-	// Load environment variables
-	if err := loadEnvironmentVariables(); err != nil {
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-	}
-
 	// Read data from request
 	var userData models.UserDataPreVerification
 

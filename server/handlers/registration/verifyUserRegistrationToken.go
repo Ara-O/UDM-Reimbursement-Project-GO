@@ -20,6 +20,7 @@ func VerifyUserRegistrationToken(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Takes the user data stored from the middleware, parses it to make sure no errors
+	//  Prolly not necessary
 	if err := json.Unmarshal(parsedUserData, &userData); err != nil {
 		fmt.Println("Error parsing JSON")
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)

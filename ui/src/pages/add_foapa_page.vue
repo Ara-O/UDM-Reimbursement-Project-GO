@@ -33,7 +33,6 @@ import { FoapaData } from "../types/types";
 import { useRouter } from "vue-router";
 import ManageFoapaDetails from "../components/manage-foapa/ManageFoapaDetails.vue";
 
-const router = useRouter();
 let foapaDetails = ref<FoapaData[]>([]);
 let successMessage = ref<string>("");
 let errorMessage = ref<string>("");
