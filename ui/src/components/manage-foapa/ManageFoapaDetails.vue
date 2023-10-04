@@ -1,8 +1,6 @@
 <template>
   <div class="foapa-numbers-label">
-    <label for="foapa-numbers"
-      >FOAPA [ FUND - ORG - ACCT - PROG - ACTV ]:</label
-    >
+    <label for="foapa-numbers">FOAPA [ FUND - ORG - ACCT - PROG - ACTV ]:</label>
   </div>
   <br />
 
@@ -11,46 +9,24 @@
       <div class="input-FOAPA-field">
         <span class="foapa-title-span">
           <label for="foapa-name">Name*</label>
-          <img
-            src="../../assets/user-help-icon.png"
-            alt="Help"
-            class="foapa-help-icon"
-            title="Unique identifier for FOAPA Number for easy identification. The FOAPA name is arbitrary and not related to the actual FOAPA"
-          />
+          <img src="../../assets/user-help-icon.png" alt="Help" class="foapa-help-icon"
+            title="Unique identifier for FOAPA Number for easy identification. The FOAPA name is arbitrary and not related to the actual FOAPA" />
         </span>
         <span class="input-FOAPA-field-span">
-          <Field
-            type="text"
-            :rules="(value) => isValidFoapaName(value, 10)"
-            style="width: 150px"
-            placeholder="Name"
-            name="foapa-name"
-            id="foapa-name"
-            v-model="currentlyInputtedFOAPA.foapaName"
-          />
+          <Field type="text" :rules="(value) => isValidFoapaName(value, 10)" style="width: 150px" placeholder="Name"
+            name="foapa-name" id="foapa-name" v-model="currentlyInputtedFOAPA.foapa_name" />
           <ErrorMessage name="foapa-name" class="error-field" />
         </span>
       </div>
       <div class="input-FOAPA-field">
         <span class="foapa-title-span">
           <label for="foapa-name">Amount</label>
-          <img
-            src="../../assets/user-help-icon.png"
-            alt="Help"
-            class="foapa-help-icon"
-            title="Optional: Current balance of FOAPA number. Can be used to keep track of FOAPA spendings"
-          />
+          <img src="../../assets/user-help-icon.png" alt="Help" class="foapa-help-icon"
+            title="Optional: Current balance of FOAPA number. Can be used to keep track of FOAPA spendings" />
         </span>
         <span class="input-FOAPA-field-span">
-          <Field
-            type="text"
-            style="width: 95px"
-            placeholder="Amount"
-            name="foapa-amount"
-            :rules="isValidFoapaAmount"
-            id="foapa-amount"
-            v-model="currentlyInputtedFOAPA.initialAmount"
-          />
+          <Field type="text" style="width: 95px" placeholder="Amount" name="foapa-amount" :rules="isValidFoapaAmount"
+            id="foapa-amount" v-model="currentlyInputtedFOAPA.initial_amount" />
           <ErrorMessage name="foapa-amount" class="error-field" />
         </span>
       </div>
@@ -59,22 +35,12 @@
       <div class="input-FOAPA-field">
         <span class="foapa-title-span">
           <label for="foapa-name">FUND*</label>
-          <img
-            src="../../assets/user-help-icon.png"
-            alt="Help"
-            class="foapa-help-icon"
-            title="Required: fund, 6 digits"
-          />
+          <img src="../../assets/user-help-icon.png" alt="Help" class="foapa-help-icon"
+            title="Required: fund, 6 digits" />
         </span>
         <span class="input-FOAPA-field-span">
-          <Field
-            type="text"
-            name="fund-input"
-            :rules="isValidFundNumber"
-            id="fund-input"
-            placeholder="xxxxxx"
-            v-model="currentlyInputtedFOAPA.fund"
-          />
+          <Field type="text" name="fund-input" :rules="isValidFundNumber" id="fund-input" placeholder="xxxxxx"
+            v-model="currentlyInputtedFOAPA.fund" />
           <ErrorMessage name="fund-input" class="error-field" />
         </span>
       </div>
@@ -83,22 +49,12 @@
       <div class="input-FOAPA-field">
         <span class="foapa-title-span">
           <label for="foapa-name">ORG</label>
-          <img
-            src="../../assets/user-help-icon.png"
-            alt="Help"
-            class="foapa-help-icon"
-            title="Optional: Organization, 4 digits"
-          />
+          <img src="../../assets/user-help-icon.png" alt="Help" class="foapa-help-icon"
+            title="Optional: Organization, 4 digits" />
         </span>
         <span class="input-FOAPA-field-span">
-          <Field
-            type="text"
-            :rules="isValidFoapaNumber"
-            name="org-input"
-            id="org-input"
-            placeholder="xxxx"
-            v-model="currentlyInputtedFOAPA.organization"
-          />
+          <Field type="text" :rules="isValidFoapaNumber" name="org-input" id="org-input" placeholder="xxxx"
+            v-model="currentlyInputtedFOAPA.organization" />
           <ErrorMessage name="org-input" class="error-field" />
         </span>
       </div>
@@ -106,28 +62,14 @@
       <div class="input-FOAPA-field">
         <span class="foapa-title-span">
           <label for="foapa-name">ACCT*</label>
-          <img
-            src="../../assets/user-help-icon.png"
-            alt="Help"
-            class="foapa-help-icon"
-            title="Required: Account number, 4 digits"
-          />
+          <img src="../../assets/user-help-icon.png" alt="Help" class="foapa-help-icon"
+            title="Required: Account number, 4 digits" />
         </span>
         <span class="input-FOAPA-field-span">
-          <Field
-            type="text"
-            name="acct-input"
-            id="acct-input"
-            :rules="isValidAccountNumber"
-            list="account-no"
-            placeholder="xxxx"
-            v-model="currentlyInputtedFOAPA.account"
-          />
+          <Field type="text" name="acct-input" id="acct-input" :rules="isValidAccountNumber" list="account-no"
+            placeholder="xxxx" v-model="currentlyInputtedFOAPA.account" />
           <datalist id="account-no">
-            <option
-              v-for="acctNo in accountNumbers"
-              :value="String(acctNo.number).padStart(4, '0')"
-            >
+            <option v-for="acctNo in accountNumbers" :value="String(acctNo.number).padStart(4, '0')">
               {{ acctNo.number }} - {{ acctNo.description }}
             </option>
           </datalist>
@@ -139,22 +81,12 @@
       <div class="input-FOAPA-field">
         <span class="foapa-title-span">
           <label for="foapa-name">Program</label>
-          <img
-            src="../../assets/user-help-icon.png"
-            alt="Help"
-            class="foapa-help-icon"
-            title="Optional: Program, 4 digits"
-          />
+          <img src="../../assets/user-help-icon.png" alt="Help" class="foapa-help-icon"
+            title="Optional: Program, 4 digits" />
         </span>
         <span class="input-FOAPA-field-span">
-          <Field
-            type="text"
-            name="prog-input"
-            id="prog-input"
-            placeholder="xxxx"
-            :rules="isValidFoapaNumber"
-            v-model="currentlyInputtedFOAPA.program"
-          />
+          <Field type="text" name="prog-input" id="prog-input" placeholder="xxxx" :rules="isValidFoapaNumber"
+            v-model="currentlyInputtedFOAPA.program" />
           <ErrorMessage name="prog-input" class="error-field" />
         </span>
       </div>
@@ -162,22 +94,12 @@
       <div class="input-FOAPA-field">
         <span class="foapa-title-span">
           <label for="foapa-name">ACTV</label>
-          <img
-            src="../../assets/user-help-icon.png"
-            alt="Help"
-            class="foapa-help-icon"
-            title="Optional: Activity, 4 digits"
-          />
+          <img src="../../assets/user-help-icon.png" alt="Help" class="foapa-help-icon"
+            title="Optional: Activity, 4 digits" />
         </span>
         <span class="input-FOAPA-field-span">
-          <Field
-            type="text"
-            name="actv-input"
-            :rules="isValidFoapaNumber"
-            id="actv-input"
-            placeholder="xxxx"
-            v-model="currentlyInputtedFOAPA.activity"
-          />
+          <Field type="text" name="actv-input" :rules="isValidFoapaNumber" id="actv-input" placeholder="xxxx"
+            v-model="currentlyInputtedFOAPA.activity" />
           <ErrorMessage name="actv-input" class="error-field" />
         </span>
       </div>
@@ -202,10 +124,10 @@
       </tr>
       <tr v-for="foapa in props.foapaDetails">
         <td>
-          {{ foapa.foapaName }}
+          {{ foapa.foapa_name }}
         </td>
         <td>
-          {{ foapa.initialAmount ? `$${foapa.initialAmount}` : "N/A" }}
+          {{ foapa.initial_amount ? `$${foapa.initial_amount}` : "N/A" }}
         </td>
         <td>{{ foapa.fund }}</td>
         <td>{{ foapa.organization || "N/A" }}</td>
@@ -213,20 +135,11 @@
         <td>{{ foapa.program || "N/A" }}</td>
         <td>{{ foapa.activity || "N/A" }}</td>
         <td>
-          <img
-            src="../../assets/trash-icon.png"
-            alt="Trash"
-            class="delete-icon"
-            @click="deleteFoapa(foapa.foapaName, foapa.fund)"
-          />
+          <img src="../../assets/trash-icon.png" alt="Trash" class="delete-icon"
+            @click="deleteFoapa(foapa.foapa_name, foapa.fund)" />
         </td>
         <td>
-          <img
-            src="../../assets/edit-icon-red.png"
-            alt="Edit"
-            class="delete-icon"
-            @click="editFoapa(foapa)"
-          />
+          <img src="../../assets/edit-icon-red.png" alt="Edit" class="delete-icon" @click="editFoapa(foapa)" />
         </td>
       </tr>
     </table>
@@ -239,7 +152,7 @@
 <script setup lang="ts">
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, reactive, onMounted } from "vue";
-import { FoapaStuff } from "../../types/types";
+import { FoapaData } from "../../types/types";
 import {
   isValidFundNumber,
   isValidAccountNumber,
@@ -254,16 +167,16 @@ import { createApp } from "vue";
 // import ConfirmationService from 'primevue/confirmationservice';
 // import { useConfirm } from "primevue/useconfirm";
 
-let props = defineProps<{ foapaDetails: FoapaStuff[] }>();
-let currentlyInputtedFOAPA = reactive<FoapaStuff>({
+let props = defineProps<{ foapaDetails: FoapaData[] }>();
+let currentlyInputtedFOAPA = reactive<FoapaData>({
   fund: "",
   organization: "",
   account: "",
   program: "",
   activity: "",
-  foapaName: "",
-  initialAmount: "",
-  currentAmount: "",
+  foapa_name: "",
+  initial_amount: "",
+  current_amount: "",
 });
 
 let accountNumbers = ref<{ number: string; description: string }[]>([]);
@@ -283,14 +196,14 @@ function retrieveAccountNumbers() {
 
 function addFoapa(values, { resetForm }) {
   resetForm();
-  currentlyInputtedFOAPA.currentAmount = currentlyInputtedFOAPA.initialAmount;
+  currentlyInputtedFOAPA.current_amount = currentlyInputtedFOAPA.initial_amount;
   let addedFoapa = Object.assign({}, currentlyInputtedFOAPA);
   props.foapaDetails.push(addedFoapa);
 }
 
 function deleteFoapa(foapaName, fund) {
   let index = props.foapaDetails.findIndex(
-    (foapa) => foapa.foapaName === foapaName && foapa.fund === fund
+    (foapa) => foapa.foapa_name === foapaName && foapa.fund === fund
   );
 
   if (index > -1) {
@@ -304,8 +217,8 @@ function editFoapa(foapa) {
   currentlyInputtedFOAPA.account = foapa.account;
   currentlyInputtedFOAPA.program = foapa.program;
   currentlyInputtedFOAPA.activity = foapa.activity;
-  currentlyInputtedFOAPA.foapaName = foapa.foapaName;
-  currentlyInputtedFOAPA.initialAmount = foapa.currentAmount;
+  currentlyInputtedFOAPA.foapa_name = foapa.foapaName;
+  currentlyInputtedFOAPA.initial_amount = foapa.currentAmount;
   deleteFoapa(foapa.foapaName, foapa.fund);
 
   // const confirm = useConfirm();

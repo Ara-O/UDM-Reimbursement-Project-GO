@@ -54,22 +54,27 @@ let userSignupData = reactive<UserData>({
   work_email: "",
   employment_number: null,
   department: "",
-  mailing_address: "",
-  phone_number: "",
-  password: "",
-  postal_code: "",
-  city: "",
-  state: "",
-  country: "",
+  mailing_address: "mail",
+  phone_number: 12345678,
+  password: "b",
+  postal_code: "Postcode",
+  city: "Det",
+  state: "MI",
+  country: "USA",
   foapa_details: [],
 });
 
 function registerUser() {
   creatingAccountFeedback.value = true;
+
   axios
     .post(
       `${import.meta.env.VITE_API_URL}/api/register`,
-      userSignupData
+      userSignupData, {
+      headers: {
+        'Authorization': `Bearer ${route.params.token}`
+      }
+    }
     )
     .then((res) => {
       // localStorage.setItem("token", res.data.token);
@@ -85,31 +90,36 @@ function registerUser() {
     });
 }
 
+
 onMounted(() => {
   if (localStorage.getItem("token")?.length ?? 0 > 0) {
     router.push("/dashboard");
   }
 
-  if (route.params.userToken) {
-    axios
-      .post(
-        `${import.meta.env.VITE_API_URL}/api/verify-user-registration-token`,
-        {
-          token: route.params.userToken,
-        }
-      )
-      .then((res) => {
-        userSignupData = Object.assign(userSignupData, res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err?.response?.data?.message || "Expired registration token, please sign up again");
-        router.push("/signup");
-      });
-  } else {
-    alert("Invalid token")
+  const axiosConfig = {
+    headers: {
+      'Authorization': `Bearer ${route.params.token}`
+    }
+  };
+
+  if (route.params.token.length === 0) {
+    alert("Missing registration token, please restart the signup process")
     router.push("/signup")
+    return
   }
+
+  axios
+    .get(
+      `${import.meta.env.VITE_API_URL}/api/verify-user-registration-token`, axiosConfig)
+    .then((res) => {
+      userSignupData = Object.assign(userSignupData, res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+      alert(err?.response?.data?.message || "Expired registration token, please sign up again");
+      router.push("/signup");
+    });
+
 });
 </script>
 

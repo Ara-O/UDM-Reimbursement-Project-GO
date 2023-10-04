@@ -5,21 +5,24 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/database"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/models"
 )
 
-type TokenData struct {
-	Token string `json:"token"`
+func getTokenFromHeader(r *http.Request) string {
+	authHeader := r.Header.Get("Authorization")
+	token := strings.Split(authHeader, " ")[1]
+	return token
 }
 
-func getUserDataFromRedis(token TokenData) (models.UserDataPreVerification, error) {
+func getUserDataFromRedis(token string) (models.UserDataPreVerification, error) {
 	var userData models.UserDataPreVerification
 	db := database.GetRedisDatabaseConnection()
 
 	//Get the stored user data from redis
-	val, err := db.Get(context.Background(), token.Token).Result()
+	val, err := db.Get(context.Background(), token).Result()
 	if err != nil {
 		return models.UserDataPreVerification{}, err
 	}
@@ -32,20 +35,15 @@ func getUserDataFromRedis(token TokenData) (models.UserDataPreVerification, erro
 	return userData, nil
 }
 
+// Middleware
 func UserRegistrationTokenAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var token TokenData
-
-		if err := json.NewDecoder(r.Body).Decode(&token); err != nil {
-			fmt.Println(err)
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
-			return
-		}
-
+		token := getTokenFromHeader(r)
 		defer r.Body.Close()
 
 		userData, err := getUserDataFromRedis(token)
 		if err != nil {
+			fmt.Println("err", err)
 			w.WriteHeader(http.StatusForbidden)
 			w.Write([]byte("Invalid token, please restart the registration process"))
 			return

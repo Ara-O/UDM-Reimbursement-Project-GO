@@ -25,4 +25,10 @@ function regress() {
 
 <style scoped>
 @import url("../../assets/styles/signup-page.css");
+
+@media (max-width:1000px) {
+  .main-foapa-div {
+    width: 84%;
+  }
+}
 </style>

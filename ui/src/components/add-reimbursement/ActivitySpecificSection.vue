@@ -5,22 +5,14 @@
       <div>
         <div style="display: flex; align-items: center; gap: 12px">
           <h3 style="font-size: 14.5px">Expense Title*</h3>
-          <img
-            src="../../assets/user-help-icon.png"
-            alt="Help icon"
+          <img src="../../assets/user-help-icon.png" alt="Help icon"
             title=" Choose from one of the default options below or select other to create another type of expense"
-            class="help-icon"
-          />
+            class="help-icon" />
         </div>
         <div class="expenses-section activity-field">
           <span>
-            <Field
-              list="defaults"
-              name="default-options"
-              :rules="isNotEmpty"
-              v-model="currentActivity.activityName"
-              class="input-field"
-            />
+            <Field list="defaults" name="default-options" :rules="isNotEmpty" v-model="currentActivity.activityName"
+              class="input-field" />
 
             <datalist id="defaults">
               <option :value="expense" v-for="expense in expensesDefaults">
@@ -35,14 +27,8 @@
         <span class="activity-field">
           <h3 style="font-size: 14.5px">Cost *</h3>
           <span>
-            <Field
-              v-model="currentActivity.cost"
-              type="text"
-              name="current-activity-cost"
-              placeholder="$ Cost"
-              :rules="isValidFloat"
-              class="input-field"
-            />
+            <Field v-model="currentActivity.cost" type="text" name="current-activity-cost" placeholder="$ Cost"
+              :rules="isValidFloat" class="input-field" />
             <ErrorMessage name="current-activity-cost" class="error-field" />
           </span>
         </span>
@@ -53,18 +39,9 @@
       <div class="activity-field" style="height: 105px">
         <h3>FOAPA Number to use *</h3>
         <span>
-          <Field
-            placeholder="Select FOAPA to pay for activity with"
-            as="select"
-            class="input-field"
-            name="foapa-field"
-            :rules="isNotEmpty"
-            v-model="currentActivity.foapaNumber"
-          >
-            <option
-              :value="formatUserFoapa(foapaDetail)"
-              v-for="foapaDetail in userFoapaNumbers"
-            >
+          <Field placeholder="Select FOAPA to pay for activity with" as="select" class="input-field" name="foapa-field"
+            :rules="isNotEmpty" v-model="currentActivity.foapaNumber">
+            <option :value="formatUserFoapa(foapaDetail)" v-for="foapaDetail in userFoapaNumbers">
               {{ foapaDetail.foapaName }}:
               {{ formatUserFoapa(foapaDetail) }}
             </option>
@@ -76,14 +53,8 @@
       <div class="activity-field" style="height: 105px">
         <h3>Date Of Activity *</h3>
         <span>
-          <Field
-            type="date"
-            v-model="currentActivity.activityDate"
-            placeholder="Date of Activity"
-            class="input-field"
-            :rules="isNotEmpty"
-            name="date-of-activity"
-          />
+          <Field type="date" v-model="currentActivity.activityDate" placeholder="Date of Activity" class="input-field"
+            :rules="isNotEmpty" name="date-of-activity" />
           <ErrorMessage name="date-of-activity" class="error-field" />
         </span>
       </div>
@@ -96,37 +67,20 @@
       <div class="activity-field">
         <div class="add-receipt-text">Assign Receipt</div>
         <span>
-          <Field
-            as="select"
-            class="input-field"
-            name="receipt-field"
-            v-model="currentActivity.activityReceipt"
-          >
-            <option
-              v-for="(receipt, index) in props.currentReimbursement
-                .reimbursementReceipts"
-              :value="receipt.url"
-            >
+          <Field as="select" class="input-field" name="receipt-field" v-model="currentActivity.activityReceipt">
+            <option v-for="(receipt, index) in props.currentReimbursement
+              .reimbursementReceipts" :value="receipt.url">
               Receipt #{{ index + 1 }}
             </option>
           </Field>
           <ErrorMessage name="receipt-field" class="error-field" />
         </span>
       </div>
-      <div
-        class="activity-field"
-        style="height: auto"
-        v-if="currentActivity.activityName === 'Mileage'"
-      >
+      <div class="activity-field" style="height: auto" v-if="currentActivity.activityName === 'Mileage'">
         <div class="add-receipt-text">Enter Mileage Information</div>
         <span>
-          <Field
-            placeholder="Mileage information"
-            class="input-field"
-            name="mileage-info"
-            :rules="isNotEmpty"
-            v-model="currentActivity.additionalInformation"
-          />
+          <Field placeholder="Mileage information" class="input-field" name="mileage-info" :rules="isNotEmpty"
+            v-model="currentActivity.additionalInformation" />
 
           <ErrorMessage name="mileage-info" class="error-field" />
         </span>
@@ -138,11 +92,7 @@
       reimbursable under published travel expense Policies & Procedures of UDM
     </h5>
     <br />
-    <button
-      class="add-reimbursement-button"
-      type="submit"
-      :disabled="currentlyAddingActivity"
-    >
+    <button class="add-reimbursement-button" type="submit" :disabled="currentlyAddingActivity">
       {{ !userIsEditingActivity ? "Add Expense" : "Update Expense" }}
     </button>
     <!-- <span style="display: flex; gap: 30px">
@@ -179,7 +129,7 @@ import {
 } from "../../utils/validators";
 import { ref, watch, toRefs, onMounted } from "vue";
 import axios from "axios";
-import { Activity, ReimbursementTicket, FoapaStuff } from "../../types/types";
+import { Activity, ReimbursementTicket, FoapaData } from "../../types/types";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { generateRandomStringId } from "../../utils/generateRandomId";
 let currentlyAddingActivity = ref<boolean>(false);
@@ -209,11 +159,10 @@ const expensesDefaults = [
 ];
 
 let selectedFoapaAmount = ref<number>();
-let userFoapaNumbers = ref<FoapaStuff[]>([]);
-function formatUserFoapa(foapa: FoapaStuff) {
-  return `${foapa.fund}-${foapa.organization || "XXXX"}-${foapa.account}-${
-    foapa.program || "XXXX"
-  }-${foapa.activity || "XXXX"}`;
+let userFoapaNumbers = ref<FoapaData[]>([]);
+function formatUserFoapa(foapa: FoapaData) {
+  return `${foapa.fund}-${foapa.organization || "XXXX"}-${foapa.account}-${foapa.program || "XXXX"
+    }-${foapa.activity || "XXXX"}`;
 }
 
 watch(

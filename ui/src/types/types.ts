@@ -5,13 +5,13 @@ export type UserData = {
   employment_number: number | null;
   department: string;
   mailing_address: string;
-  phone_number: string;
+  phone_number: number | null;
   password: string;
   postal_code: string;
   city: string;
   state: string;
   country: string;
-  foapa_details: FoapaStuff[];
+  foapa_details: FoapaData[];
 };
 
 export type UserDataPreVerification = {
@@ -37,15 +37,15 @@ export type UserDataAcct = {
   country: string;
 };
 
-export type FoapaStuff = {
+export type FoapaData = {
   fund: string;
   organization: string;
   account: string;
   program: string;
   activity: string;
-  foapaName: string;
-  initialAmount: string;
-  currentAmount: string;
+  foapa_name: string;
+  initial_amount: string;
+  current_amount: string;
 };
 
 export type AddressDetails = {

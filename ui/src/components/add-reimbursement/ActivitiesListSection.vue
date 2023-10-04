@@ -1,23 +1,15 @@
 <template>
   <h3 style="margin-top: 0px" class="all-activities-text">All Expenses</h3>
   <span class="activities-list">
-    <ActivityContainer
-      v-for="activity in props.currentReimbursement.activities"
-      :activity="activity"
-      :foapa-details="foapaDetails"
-      @edit-activity="editActivity"
-      @delete-activity="deleteActivity"
-      v-if="props.currentReimbursement.activities.length > 0"
-    />
-    <h3
-      v-else
-      style="
+    <ActivityContainer v-for="activity in props.currentReimbursement.activities" :activity="activity"
+      :foapa-details="foapaDetails" @edit-activity="editActivity" @delete-activity="deleteActivity"
+      v-if="props.currentReimbursement.activities.length > 0" />
+    <h3 v-else style="
         font-size: 14px;
         margin-top: 0px;
         margin-bottom: 20px;
         font-weight: 500;
-      "
-    >
+      ">
       No Expense Added
     </h3>
   </span>
@@ -34,15 +26,12 @@
     <button class="add-actvities-button" @click="router.push('/dashboard')">
       Discard Changes
     </button>
-    <h5
-      style="
+    <h5 style="
         font-weight: 400;
         margin-top: 2px;
         font-size: 14px;
         text-align: center;
-      "
-      v-show="currentlyCreatingPDF"
-    >
+      " v-show="currentlyCreatingPDF">
       Creating PDF, please wait, this may take a minute... Pop-ups may need to
       be enabled to view the PDF
     </h5>
@@ -53,7 +42,7 @@
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { FoapaStuff, ReimbursementTicket } from "../../types/types";
+import { FoapaData, ReimbursementTicket } from "../../types/types";
 import parseDate from "../../utils/parseDate";
 import ActivityContainer from "./ActivityContainer.vue";
 
@@ -224,7 +213,7 @@ function deleteActivity(activityId: string) {
     );
 }
 
-let foapaDetails = ref<FoapaStuff[]>([]);
+let foapaDetails = ref<FoapaData[]>([]);
 
 function retrieveFoapaDetails() {
   axios

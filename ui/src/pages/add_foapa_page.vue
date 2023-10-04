@@ -1,20 +1,12 @@
 <template>
   <section class="add-foapa-page">
-    <img
-      src="../assets/detroit-mercy-logo.png"
-      class="udmercy-logo"
-      @click="$router.push('/dashboard')"
-      alt="Detroit mercy logo"
-    />
+    <img src="../assets/detroit-mercy-logo.png" class="udmercy-logo" @click="$router.push('/dashboard')"
+      alt="Detroit mercy logo" />
     <div class="manage-foapa-div">
       <h3 class="manage-foapa-text">Manage FOAPA</h3>
       <ManageFoapaDetails :foapa-details="foapaDetails" />
       <div class="add-foapa-button-wrapper">
-        <button
-          class="add-foapa-button"
-          style="width: auto; padding: 0px 30px"
-          @click="$router.push('/dashboard')"
-        >
+        <button class="add-foapa-button" style="width: auto; padding: 0px 30px" @click="$router.push('/dashboard')">
           Go to Dashboard
         </button>
         <button class="add-foapa-button" @click="updateFoapa">
@@ -37,12 +29,12 @@
 <script lang="ts" setup>
 import axios from "axios";
 import { ref, onMounted } from "vue";
-import { FoapaStuff } from "../types/types";
+import { FoapaData } from "../types/types";
 import { useRouter } from "vue-router";
 import ManageFoapaDetails from "../components/manage-foapa/ManageFoapaDetails.vue";
 
 const router = useRouter();
-let foapaDetails = ref<FoapaStuff[]>([]);
+let foapaDetails = ref<FoapaData[]>([]);
 let successMessage = ref<string>("");
 let errorMessage = ref<string>("");
 let loadingMessage = ref<string>("");

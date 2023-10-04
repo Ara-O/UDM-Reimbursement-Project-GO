@@ -29,7 +29,7 @@ export default createRouter({
       redirect: "/signup",
     },
     {
-      path: "/complete-verification/:userToken",
+      path: "/complete-verification/:token",
       component: CompleteVerificationPage,
     },
     {

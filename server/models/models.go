@@ -3,6 +3,14 @@ package models
 import "encoding/json"
 
 type FoapaDetails struct {
+	FoapaName     string `json:"foapa_name"`
+	Organization  string `json:"organization"`
+	Account       string `json:"account"`
+	Program       string `json:"program"`
+	Activity      string `json:"activity"`
+	CurrentAmount string `json:"current_amount"`
+	Fund          string `json:"fund"`
+	InitialAmount string `json:"initial_amount"`
 }
 
 type UserDataPreVerification struct {

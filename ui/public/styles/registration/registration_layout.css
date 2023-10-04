@@ -53,9 +53,10 @@
     .udmercy-logo {
         display: none;
     }
+
 }
 
-@media (max-width: 780px) {
+@media (max-width: 1000px) {
     .signup-page {
         height: auto;
     }
