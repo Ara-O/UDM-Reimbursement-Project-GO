@@ -19,9 +19,11 @@ func main() {
 	if err := database.StartDatabase(); err != nil {
 		log.Fatal(err)
 	}
+	defer database.Close()
 
 	app := application.New(":8080")
 
 	fmt.Println("Server Started")
 	log.Fatal(http.ListenAndServe(app.Addr, app.Routes))
+
 }
