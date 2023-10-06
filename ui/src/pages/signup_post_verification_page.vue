@@ -77,10 +77,9 @@ function registerUser() {
     }
     )
     .then((res) => {
-      // localStorage.setItem("token", res.data.token);
-      // axios.defaults.headers.common["authorization"] =
-      //   localStorage.getItem("token");
-      // router.push("/dashboard");
+      localStorage.setItem("token", res.data);
+      axios.defaults.headers.common["Authorization"] = res.data
+      router.push("/dashboard");
     })
     .catch((err) => {
       if (err?.response.status === 409) {

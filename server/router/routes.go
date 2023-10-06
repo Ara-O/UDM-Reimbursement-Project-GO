@@ -8,6 +8,7 @@ import (
 
 func DefineRoutes(r *chi.Mux) {
 	r.Post("/api/send-confirmation-email", registration.SendConfirmationEmail)
+	r.Post("/api/verify-user-information", registration.VerifyUserInformation)
 
 	// Requires signup token authentication
 	r.Group(func(r chi.Router) {

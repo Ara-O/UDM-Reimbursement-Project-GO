@@ -43,16 +43,21 @@ async function register() {
   try {
     await axios
       .post(
-        "https://udm-reimbursement-project.onrender.com/api/verifySignupBasicInformation",
+        `${import.meta.env.VITE_API_URL}/api/verify-user-information`,
         {
-          employmentNumber: userSignupData.employment_number,
-          workEmail: userSignupData.work_email,
+          employment_number: userSignupData.employment_number,
+          work_email: userSignupData.work_email,
         }
       )
 
     sendConfirmationEmail()
   } catch (err: any) {
-    updateProgressMessage(err?.response?.data || "There was an error registering, please try again")
+    console.log(err)
+    if (err?.response?.status === 409) {
+      updateProgressMessage("It seems there's already a similar record in our system. Please check your input and try again.")
+    } else {
+      updateProgressMessage(err?.response?.data || "There was an error registering, please try again")
+    }
   }
 }
 

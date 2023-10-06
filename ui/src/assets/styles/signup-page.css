@@ -264,14 +264,17 @@ input {
 
 }
 
-
-
 @media (max-width: 1000px) {
   .signup-form {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+  }
+
+  .validating-signup-field {
+    text-align: center;
+    width: 300px;
   }
 
   .error-signup-message {
