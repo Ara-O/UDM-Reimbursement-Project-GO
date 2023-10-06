@@ -19,7 +19,6 @@ func main() {
 	if err := database.StartDatabase(); err != nil {
 		log.Fatal(err)
 	}
-	defer database.Close()
 
 	app := application.New(":8080")
 

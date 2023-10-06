@@ -18,16 +18,12 @@ var mongoDB *mongo.Client
 func startMongoDatabase() error {
 	opts := options.Client().ApplyURI(os.Getenv("MONGO_URL"))
 
-	mongoDB, err := mongo.Connect(context.TODO(), opts)
+	var err error
+
+	mongoDB, err = mongo.Connect(context.TODO(), opts)
 	if err != nil {
 		return err
 	}
-
-	defer func() {
-		if err = mongoDB.Disconnect(context.TODO()); err != nil {
-			panic(err)
-		}
-	}()
 
 	if err = mongoDB.Ping(ctx, readpref.Primary()); err != nil {
 		return err
@@ -67,6 +63,6 @@ func GetRedisDatabaseConnection() *redis.Client {
 	return redisDB
 }
 
-func Close() {
-	fmt.Println("close")
+func GetMongoDbConnection() *mongo.Client {
+	return mongoDB
 }

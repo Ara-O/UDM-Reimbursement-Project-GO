@@ -32,7 +32,7 @@ func storeUserDataInRedis(userData *models.UserDataPreVerification) (string, err
 	db := database.GetRedisDatabaseConnection()
 	userId := uuid.New().String()
 
-	err := db.Set(context.Background(), userId, userData, 15*time.Minute).Err()
+	err := db.Set(context.Background(), userId, userData, 60*time.Minute).Err()
 
 	if err != nil {
 		fmt.Println(err)
