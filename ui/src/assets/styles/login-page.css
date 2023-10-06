@@ -57,6 +57,7 @@ input {
   color: purple;
   cursor: pointer;
 }
+
 .login-page {
   display: flex;
   justify-content: center;
@@ -68,7 +69,6 @@ input {
 .login-title {
   font-weight: 600;
   font-size: 25px;
-  margin-bottom: 4px;
 }
 
 .udmercy-logo {
@@ -146,6 +146,7 @@ input {
     line-height: 45px;
     margin-top: 0px;
   }
+
   .login-field {
     flex-direction: column;
     align-items: center;
@@ -163,6 +164,7 @@ input {
     text-align: center;
     padding-left: 0px;
   }
+
   .login-field label {
     width: auto;
     text-align: center;
