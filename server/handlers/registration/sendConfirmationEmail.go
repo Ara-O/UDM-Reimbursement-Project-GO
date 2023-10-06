@@ -11,22 +11,9 @@ import (
 
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/database"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/models"
-	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 	"gopkg.in/gomail.v2"
 )
-
-func validateStruct(userData *models.UserDataPreVerification) error {
-	validate := validator.New(validator.WithRequiredStructEnabled())
-	err := validate.Struct(userData)
-
-	if err != nil {
-		fmt.Println(err)
-		return err
-	}
-
-	return nil
-}
 
 func storeUserDataInRedis(userData *models.UserDataPreVerification) (string, error) {
 	db := database.GetRedisDatabaseConnection()
@@ -97,7 +84,7 @@ func SendConfirmationEmail(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	//Validate struct format
-	if err := validateStruct(&userData); err != nil {
+	if err := userData.ValidateStruct(); err != nil {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 		return
 	}

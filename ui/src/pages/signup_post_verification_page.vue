@@ -83,7 +83,21 @@ function registerUser() {
       // router.push("/dashboard");
     })
     .catch((err) => {
-      alert(err?.response?.data || "There was an error, please try again");
+      if (err?.response.status === 409) {
+        alert("A faculty with your credentials already exists")
+      }
+
+      if (err?.response.status === 500) {
+        alert("An error has occured, please try again")
+      }
+
+      if (err?.response.status === 400) {
+        alert("Invalid request, please try again")
+      }
+
+      if (err?.response.status === 403) {
+        alert("Invalid token, please restart the registration process")
+      }
     })
     .finally(() => {
       creatingAccountFeedback.value = false;
