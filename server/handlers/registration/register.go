@@ -3,11 +3,14 @@ package registration
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/database"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/models"
+	"github.com/go-chi/jwtauth"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
@@ -24,7 +27,7 @@ func checkIfFacultyAlreadyExists(w http.ResponseWriter, collection *mongo.Collec
 	// A document was found
 	if err == nil {
 		http.Error(w, http.StatusText(http.StatusConflict), http.StatusConflict)
-		return err
+		return errors.New("Faculty already exists")
 	}
 
 	// A document was not found
@@ -39,6 +42,12 @@ func checkIfFacultyAlreadyExists(w http.ResponseWriter, collection *mongo.Collec
 func hashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(bytes), err
+}
+
+func createJwtToken(id interface{}) (string, error) {
+	tokenAuth := jwtauth.New("HS256", []byte(os.Getenv("JWT_TOKEN_KEY")), nil)
+	_, tokenString, _ := tokenAuth.Encode(map[string]interface{}{"user_id": id})
+	return tokenString, nil
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +88,14 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create jwt
-	fmt.Println("res", res)
+	token, err := createJwtToken(res.InsertedID)
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		return
+	}
 
-	fmt.Printf("%+v", userData)
+	w.WriteHeader(200)
+	w.Write([]byte(token))
+
+	fmt.Print("TOKEN: ", token)
 }
