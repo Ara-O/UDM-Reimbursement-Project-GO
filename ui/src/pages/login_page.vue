@@ -42,6 +42,9 @@
       {{ errorMessage }}
     </h5>
   </section>
+
+  <!-- FORGOT PASSWOR SECTION -->
+
   <section class="login-page" v-if="section === 'forgot-password'">
     <div class="udmercy-logo-wrapper">
       <img src="../assets/detroit-mercy-logo.png" alt="Detroit mercy logo" class="udmercy-logo" />
@@ -58,7 +61,7 @@
         <span>
           <div class="work-email-input-field">
             <Field v-model="forgotPasswordWorkEmail" type="text" name="forgot-work-email" id="forgot-work-email"
-              :rules="isValidString" />
+              :rules="isValidString" class="text-align: left" />
 
             <h6 class="work-email-descriptor">@udmercy.edu</h6>
           </div>
@@ -137,11 +140,12 @@ onMounted(() => {
 
 function sendEmail() {
   axios
-    .post("https://udm-reimbursement-project.onrender.com/api/forgotPassword", {
-      workEmail: forgotPasswordWorkEmail.value,
+    .post(`${import.meta.env.VITE_API_URL}/api/forgot-password`, {
+      work_email: forgotPasswordWorkEmail.value,
     })
     .then((res) => {
-      emailSent.value = true;
+      console.log(res)
+      // emailSent.value = true;
       // console.log(res);
     })
     .catch((err) => {

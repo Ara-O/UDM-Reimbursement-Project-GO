@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/database"
@@ -46,6 +47,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Check for existing faculty
+	reqData.WorkEmail = strings.ToLower(strings.TrimSpace(reqData.WorkEmail))
 	userEmail := fmt.Sprintf("%s@udmercy.edu", reqData.WorkEmail)
 	var userData models.UserDataPostVerification
 
