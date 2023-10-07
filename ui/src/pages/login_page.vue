@@ -11,7 +11,7 @@
         <label for="work-email">Work Email: </label>
         <span>
           <div class="work-email-input-field">
-            <Field v-model="userInfo.workEmail" type="text" name="work-email" id="work-email" :rules="isValidString" />
+            <Field v-model="userInfo.work_email" type="text" name="work-email" id="work-email" :rules="isValidString" />
 
             <h6 class="work-email-descriptor">@udmercy.edu</h6>
           </div>
@@ -97,28 +97,34 @@ let emailSent = ref<boolean>(false);
 let loggingIn = ref<boolean>(false);
 let errorMessage = ref<string>("");
 let error = ref<boolean>(false);
-let userInfo = ref<any>({ workEmail: "", password: "" });
+let userInfo = ref<any>({ work_email: "", password: "" });
 let forgotPasswordWorkEmail = ref<string>("");
 const router = useRouter();
+
 function loginUser() {
   loggingIn.value = true;
   axios
     .post(
-      "https://udm-reimbursement-project.onrender.com/api/login",
+      `${import.meta.env.VITE_API_URL}/api/login`,
       userInfo.value
     )
     .then((res) => {
-      // console.log(res);
       loggingIn.value = false;
-      localStorage.setItem("token", res.data.token);
-      axios.defaults.headers.common["authorization"] =
-        localStorage.getItem("token");
+      localStorage.setItem("token", res.data);
+      axios.defaults.headers.common["authorization"] = res.data
       router.push("/dashboard");
     })
     .catch((err) => {
       loggingIn.value = false;
       error.value = true;
-      errorMessage.value = err.response.data.message;
+
+      if (err.response.status === 404) {
+        errorMessage.value = "A faculty member with the inputted information does not exist";
+      } else if (err.response.status === 403) {
+        errorMessage.value = "Incorrect username/password, please try again";
+      } else {
+        errorMessage.value = "There was an error, please try again later";
+      }
     });
 }
 
