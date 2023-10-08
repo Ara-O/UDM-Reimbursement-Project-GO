@@ -25,6 +25,8 @@ func DefineRoutes(r *chi.Mux) {
 	r.Group(func(r chi.Router) {
 		r.Post("/api/login", login.Login)
 		r.Post("/api/forgot-password", login.ForgotPassword)
+		r.Post("/api/verify-forgot-password-token", login.VerifyForgotPasswordToken)
+		r.Post("/api/reset-password", login.ResetPassword)
 	})
 
 	// Requires signup token authentication
