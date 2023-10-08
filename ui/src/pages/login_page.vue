@@ -145,8 +145,7 @@ function sendEmail() {
     })
     .then((res) => {
       console.log(res)
-      // emailSent.value = true;
-      // console.log(res);
+      emailSent.value = true;
     })
     .catch((err) => {
       console.log(err);
