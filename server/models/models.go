@@ -19,8 +19,8 @@ type FoapaDetails struct {
 }
 
 type UserDataPreVerification struct {
-	FirstName        string `json:"first_name" validate:"required,min=2,max=50" mapstructure:"first_name"`
-	LastName         string `json:"last_name" validate:"required,min=2,max=50" mapstructure:"last_name"`
+	FirstName        string `json:"first_name" validate:"required,max=50" mapstructure:"first_name"`
+	LastName         string `json:"last_name" validate:"required,max=50" mapstructure:"last_name"`
 	PhoneNumber      int64  `json:"phone_number" validate:"required,number" mapstructure:"phone_number"`
 	WorkEmail        string `json:"work_email" validate:"required,alphanum" mapstructure:"work_email"`
 	EmploymentNumber int64  `json:"employment_number" validate:"required,number" mapstructure:"employment_number"`

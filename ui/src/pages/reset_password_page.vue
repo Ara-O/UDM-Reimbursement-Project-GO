@@ -66,7 +66,6 @@ function resetPassword() {
       }
     )
     .then((res) => {
-      console.log(res);
       alert("Password successfully changed");
     })
     .catch((err) => {
@@ -83,7 +82,6 @@ function resetPassword() {
     .finally(() => {
       router.push("/");
     });
-
 }
 
 onMounted(() => {

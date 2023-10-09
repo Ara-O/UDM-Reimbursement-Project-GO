@@ -71,7 +71,11 @@ function sendConfirmationEmail() {
       basicQuestionsFormIsComplete.value = true;
     })
     .catch((err) => {
-      updateProgressMessage(err?.response?.data || "An error has occured, please try again later");
+      if (err.response.status === 400) {
+        updateProgressMessage("Invalid user input");
+      } else {
+        updateProgressMessage("An error has occured, please try again later");
+      }
     });
 }
 
