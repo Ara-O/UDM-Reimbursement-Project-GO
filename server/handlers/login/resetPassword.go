@@ -3,14 +3,38 @@ package login
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/database"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/crypto/bcrypt"
 )
+
+func checkIfUserExistsInMongo(email string) error {
+	db := database.GetMongoDbConnection()
+	coll := db.Database("udm-go").Collection("faculties")
+
+	projection := bson.M{"_id": 1}
+
+	var user struct {
+		ID interface{} `bson:"_id"`
+	}
+
+	if err := coll.FindOne(context.Background(), bson.M{"work_email": email}, options.FindOne().SetProjection(projection)).Decode(&user); err != nil {
+		if err == mongo.ErrNoDocuments {
+			return errors.New("No user found")
+		}
+
+		return err
+	}
+
+	return nil
+}
 
 func hashNewPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
@@ -55,6 +79,13 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
+		return
+	}
+
+	// Check if user exists in mongo
+	if err := checkIfUserExistsInMongo(userEmail); err != nil {
+		fmt.Println(err)
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 		return
 	}
 

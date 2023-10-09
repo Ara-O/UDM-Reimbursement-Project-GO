@@ -7,7 +7,7 @@ import DashboardPage from "../pages/dashboard_page.vue";
 import AddReimbursementPage from "../pages/add_reimbursement_page.vue";
 import AddFoapaPage from "../pages/add_foapa_page.vue";
 import PasswordPage from "../pages/password_page.vue";
-import ForgotPassword from "../pages/forgot_password_page.vue";
+import ForgotPassword from "../pages/reset_password_page.vue";
 import MobileProfilePage from "../pages/profile_page.vue";
 export default createRouter({
   history: createWebHistory(),

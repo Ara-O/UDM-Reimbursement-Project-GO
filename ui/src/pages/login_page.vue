@@ -75,6 +75,14 @@
       </span>
       <button class="login-button" type="submit">Receive link</button>
     </Form>
+
+    <h5 v-if="loading" style="
+        font-weight: 400;
+        max-width: 400px;
+        width: auto;
+        line-height: 25px;
+        text-align: center;
+      ">Verifying information...</h5>
     <h5 v-if="emailSent" style="
         font-weight: 400;
         max-width: 400px;
@@ -97,6 +105,7 @@ import { useRouter } from "vue-router";
 import { isNotEmpty, isValidString } from "../utils/validators";
 let section = ref<"login" | "forgot-password">("login");
 let emailSent = ref<boolean>(false);
+let loading = ref<boolean>(false);
 let loggingIn = ref<boolean>(false);
 let errorMessage = ref<string>("");
 let error = ref<boolean>(false);
@@ -139,15 +148,19 @@ onMounted(() => {
 });
 
 function sendEmail() {
+  loading.value = true
   axios
     .post(`${import.meta.env.VITE_API_URL}/api/forgot-password`, {
       work_email: forgotPasswordWorkEmail.value,
     })
     .then((res) => {
       console.log(res)
+      loading.value = false
       emailSent.value = true;
     })
     .catch((err) => {
+      loading.value = false
+      alert("There was an error, please try again later")
       console.log(err);
     });
 }

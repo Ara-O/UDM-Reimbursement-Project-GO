@@ -74,6 +74,10 @@ function resetPassword() {
       if (err?.response?.status === 403) {
         alert("Invalid token, please start the process again")
         router.push("/");
+      } else if (err.response.status === 400) {
+        alert("A user with your information does not exist, please create an account first")
+      } else {
+        alert("An error has occured, please try again later")
       }
     })
     .finally(() => {
