@@ -12,7 +12,7 @@
         <span class="foapa-number-title">
           <img src="../../assets/trash-icon.png" alt="Trash" @click="deleteFoapa(foapa)" />
           <h3 style="font-weight: 500">
-            {{ foapa.foapaName }}
+            {{ foapa.foapa_name }}
           </h3>
         </span>
         <div class="foapa-details-container">
@@ -45,7 +45,7 @@ function formatUserFoapa(foapa: FoapaData) {
 function retrieveUserFoapaDetails() {
   axios
     .get(
-      "https://udm-reimbursement-project.onrender.com/api/retrieveFoapaDetails"
+      `${import.meta.env.VITE_API_URL}/api/retrieve-foapa-details`
     )
     .then((res) => {
       userFoapaNumbers.value = res.data;

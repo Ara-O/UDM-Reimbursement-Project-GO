@@ -78,7 +78,7 @@ function registerUser() {
     )
     .then((res) => {
       localStorage.setItem("token", res.data);
-      axios.defaults.headers.common["Authorization"] = res.data
+      axios.defaults.headers.common["Authorization"] = `BEARER ${res.data}`
       router.push("/dashboard");
     })
     .catch((err) => {

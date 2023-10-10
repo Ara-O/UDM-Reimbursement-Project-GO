@@ -123,7 +123,7 @@ function loginUser() {
     .then((res) => {
       loggingIn.value = false;
       localStorage.setItem("token", res.data);
-      axios.defaults.headers.common["authorization"] = res.data
+      axios.defaults.headers.common["Authorization"] = `BEARER ${res.data}`
       router.push("/dashboard");
     })
     .catch((err) => {

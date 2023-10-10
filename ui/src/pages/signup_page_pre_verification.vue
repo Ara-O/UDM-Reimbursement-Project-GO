@@ -54,7 +54,7 @@ async function register() {
   } catch (err: any) {
     console.log(err)
     if (err?.response?.status === 409) {
-      updateProgressMessage("It seems there's already a similar record in our system. Please check your input and try again.")
+      updateProgressMessage("There is already a similar record in our system. Please check your input and try again.")
     } else {
       updateProgressMessage(err?.response?.data || "There was an error registering, please try again")
     }

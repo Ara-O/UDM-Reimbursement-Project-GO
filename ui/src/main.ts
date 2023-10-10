@@ -11,8 +11,8 @@ configure({
 });
 
 if (localStorage.getItem("token")?.length ?? 0 > 0) {
-  axios.defaults.headers.common["authorization"] =
-    localStorage.getItem("token");
+  axios.defaults.headers.common["Authorization"] =
+    `BEARER: ${localStorage.getItem("token")}`;
 } else {
   console.log("not logged in");
 }
