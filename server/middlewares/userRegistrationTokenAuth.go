@@ -3,6 +3,7 @@ package middlewares
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
@@ -11,10 +12,17 @@ import (
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/models"
 )
 
-func getTokenFromHeader(r *http.Request) string {
+func getTokenFromHeader(r *http.Request) (string, error) {
 	authHeader := r.Header.Get("Authorization")
-	token := strings.Split(authHeader, " ")[1]
-	return token
+
+	tokenType, token := strings.Split(authHeader, " ")[0], strings.Split(authHeader, " ")[1]
+
+	if strings.ToUpper(strings.TrimSpace(tokenType)) != "BEARER" {
+		fmt.Println("Invalid authorization type")
+		return "", errors.New("Invalid authorization type")
+	}
+
+	return token, nil
 }
 
 func getUserDataFromRedis(token string) (models.UserDataPreVerification, error) {
@@ -38,7 +46,13 @@ func getUserDataFromRedis(token string) (models.UserDataPreVerification, error) 
 // Middleware
 func UserRegistrationTokenAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		token := getTokenFromHeader(r)
+		token, err := getTokenFromHeader(r)
+
+		if err != nil {
+			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+			return
+		}
+
 		defer r.Body.Close()
 
 		userData, err := getUserDataFromRedis(token)

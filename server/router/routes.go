@@ -1,10 +1,14 @@
 package router
 
 import (
+	"os"
+
+	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/foapa"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/login"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/registration"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/middlewares"
 	"github.com/go-chi/chi"
+	"github.com/go-chi/jwtauth"
 )
 
 func DefineRoutes(r *chi.Mux) {
@@ -29,5 +33,13 @@ func DefineRoutes(r *chi.Mux) {
 		r.Post("/api/reset-password", login.ResetPassword)
 	})
 
-	// Requires signup token authentication
+	// Requires main token authentication
+	r.Group(func(r chi.Router) {
+		tokenAuth := jwtauth.New("HS256", []byte(os.Getenv("JWT_TOKEN_KEY")), nil)
+
+		r.Use(jwtauth.Verifier(tokenAuth))
+		r.Use(jwtauth.Authenticator)
+
+		r.Get("/api/retrieve-foapa-details", foapa.RetrieveFoapaDetails)
+	})
 }
