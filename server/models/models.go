@@ -8,14 +8,14 @@ import (
 )
 
 type FoapaDetails struct {
-	FoapaName     string `json:"foapa_name"`
+	FoapaName     string `json:"foapa_name" bson:"foapa_name"`
 	Organization  string `json:"organization"`
 	Account       string `json:"account"`
 	Program       string `json:"program"`
 	Activity      string `json:"activity"`
-	CurrentAmount string `json:"current_amount"`
+	CurrentAmount string `json:"current_amount" bson:"current_amount"`
 	Fund          string `json:"fund"`
-	InitialAmount string `json:"initial_amount"`
+	InitialAmount string `json:"initial_amount" bson:"initial_amount"`
 }
 
 type UserDataPreVerification struct {

@@ -48,8 +48,8 @@ function retrieveUserFoapaDetails() {
       `${import.meta.env.VITE_API_URL}/api/retrieve-foapa-details`
     )
     .then((res) => {
+      console.log(res.data)
       userFoapaNumbers.value = res.data;
-      // console.log(res);
     })
     .catch((err) => {
       console.log(err);

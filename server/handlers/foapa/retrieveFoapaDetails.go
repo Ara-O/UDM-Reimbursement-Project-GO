@@ -7,13 +7,19 @@ import (
 	"net/http"
 
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/database"
+	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/models"
 	"github.com/go-chi/jwtauth"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func getUserIdFromHeader(r *http.Request) (string, error) {
+type retrievedFoapaData struct {
+	ID           primitive.ObjectID    `bson:"_id"`
+	FoapaDetails []models.FoapaDetails `bson:"foapa_details" json:"foapa_details"`
+}
+
+func getUserIdFromMiddleware(r *http.Request) (string, error) {
 	_, claims, err := jwtauth.FromContext(r.Context())
 
 	if err != nil {
@@ -30,7 +36,7 @@ func convertStringToId(id string) (primitive.ObjectID, error) {
 }
 
 func RetrieveFoapaDetails(w http.ResponseWriter, r *http.Request) {
-	id, err := getUserIdFromHeader(r)
+	id, err := getUserIdFromMiddleware(r)
 
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
@@ -42,6 +48,7 @@ func RetrieveFoapaDetails(w http.ResponseWriter, r *http.Request) {
 	db := database.GetMongoDbConnection()
 	coll := db.Database("udm-go").Collection("faculties")
 
+	// Convert user id from
 	objectId, err := convertStringToId(id)
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
@@ -51,12 +58,12 @@ func RetrieveFoapaDetails(w http.ResponseWriter, r *http.Request) {
 	filter := bson.M{"_id": objectId}
 	projection := bson.M{"foapa_details": 1}
 
-	var foapaInformation interface{}
+	var foapaInformation retrievedFoapaData
 	coll.FindOne(context.Background(), filter, options.FindOne().SetProjection(projection)).Decode(&foapaInformation)
 
-	fmt.Println(foapaInformation)
+	fmt.Printf("%+v", foapaInformation)
 
-	formattedJson, err := json.Marshal(foapaInformation)
+	formattedJson, err := json.Marshal(foapaInformation.FoapaDetails)
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
