@@ -3,7 +3,6 @@ package foapa
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/database"
@@ -43,8 +42,6 @@ func RetrieveFoapaDetails(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("id:", id)
-
 	db := database.GetMongoDbConnection()
 	coll := db.Database("udm-go").Collection("faculties")
 
@@ -60,8 +57,6 @@ func RetrieveFoapaDetails(w http.ResponseWriter, r *http.Request) {
 
 	var foapaInformation retrievedFoapaData
 	coll.FindOne(context.Background(), filter, options.FindOne().SetProjection(projection)).Decode(&foapaInformation)
-
-	fmt.Printf("%+v", foapaInformation)
 
 	formattedJson, err := json.Marshal(foapaInformation.FoapaDetails)
 	if err != nil {

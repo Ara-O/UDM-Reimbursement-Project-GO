@@ -41,5 +41,8 @@ func DefineRoutes(r *chi.Mux) {
 		r.Use(jwtauth.Authenticator)
 
 		r.Get("/api/retrieve-foapa-details", foapa.RetrieveFoapaDetails)
+		r.Get("/api/retrieve-account-numbers", foapa.RetrieveAccountNumbers)
+		r.Post("/api/update-foapa-details", foapa.UpdateFoapaDetails)
+		r.Post("/api/delete-foapa-detail", foapa.DeleteFoapaDetail)
 	})
 }

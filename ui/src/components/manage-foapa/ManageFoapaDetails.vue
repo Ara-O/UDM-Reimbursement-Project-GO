@@ -184,17 +184,17 @@ let accountNumbers = ref<{ number: string; description: string }[]>([]);
 function retrieveAccountNumbers() {
   axios
     .get(
-      "https://udm-reimbursement-project.onrender.com/api/retrieveAccountNumbers"
+      `${import.meta.env.VITE_API_URL}/api/retrieve-account-numbers`
     )
     .then((res) => {
-      accountNumbers.value = res.data.accountNumbers;
+      accountNumbers.value = res.data;
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-function addFoapa(values, { resetForm }) {
+function addFoapa(_, { resetForm }) {
   resetForm();
   currentlyInputtedFOAPA.current_amount = currentlyInputtedFOAPA.initial_amount;
   let addedFoapa = Object.assign({}, currentlyInputtedFOAPA);
@@ -217,25 +217,10 @@ function editFoapa(foapa) {
   currentlyInputtedFOAPA.account = foapa.account;
   currentlyInputtedFOAPA.program = foapa.program;
   currentlyInputtedFOAPA.activity = foapa.activity;
-  currentlyInputtedFOAPA.foapa_name = foapa.foapaName;
-  currentlyInputtedFOAPA.initial_amount = foapa.currentAmount;
-  deleteFoapa(foapa.foapaName, foapa.fund);
+  currentlyInputtedFOAPA.foapa_name = foapa.foapa_name;
+  currentlyInputtedFOAPA.initial_amount = foapa.current_amount;
+  deleteFoapa(foapa.foapa_name, foapa.fund);
 
-  // const confirm = useConfirm();
-  // const isVisible = ref(false);
-  // const openDialog =() => {
-  //   confirm.require({
-  //     message: 'WARNING! If the FOAPA you are editing has already been used in a request, you will need to change it before submission.',
-  //     header: 'WARNING',
-  //     onShow: () => {
-  //       isVisible.value = true;
-  //     },
-  //     onHide: () => {
-  //       isVisible.value=false;
-  //     }
-  //   });
-  // };
-  // openDialog();
 }
 
 onMounted(() => {

@@ -46,8 +46,8 @@
       </div>
       <br />
       <div :class="currentView === 'list'
-          ? 'reimbursement-wrapper-list'
-          : 'reimbursement-wrapper-grid'
+        ? 'reimbursement-wrapper-list'
+        : 'reimbursement-wrapper-grid'
         ">
         <div class="reimbursement" v-for="ticket in filterReimbursements">
           <h3>{{ ticket.reimbursementName }}</h3>
@@ -320,6 +320,7 @@ onMounted(() => {
     console.log("User not signed in");
     router.push("/");
   } else {
+    // TODO: Validate that user actually exists by checking if they exist in faculty
     // retrieveUserInformationSummary();
     // retrieveReimbursements();
   }

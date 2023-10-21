@@ -56,20 +56,29 @@ function retrieveUserFoapaDetails() {
     });
 }
 
-function deleteFoapa(foapa: FoapaData) {
+
+
+
+function deleteFoapa(foapa_detail: FoapaData) {
+  let index = userFoapaNumbers.value.findIndex(
+    (foapa) => foapa.foapa_name === foapa_detail.foapa_name && foapa.fund === foapa_detail.fund
+  );
+
+  if (index > -1) {
+    userFoapaNumbers.value.splice(index, 1);
+  }
+
   axios
     .post(
-      "https://udm-reimbursement-project.onrender.com/api/deleteFoapaDetail",
-      {
-        foapa,
-      }
+      `${import.meta.env.VITE_API_URL}/api/update-foapa-details`,
+      userFoapaNumbers.value
     )
     .then(() => {
       retrieveUserFoapaDetails();
     })
     .catch((err) => {
       console.log(err);
-      alert(err.response.data.message);
+      alert(err.response?.data || "There was an error deleting this FOAPA number");
     });
 }
 

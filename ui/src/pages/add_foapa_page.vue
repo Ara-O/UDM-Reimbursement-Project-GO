@@ -9,7 +9,7 @@
         <button class="add-foapa-button" style="width: auto; padding: 0px 30px" @click="$router.push('/dashboard')">
           Go to Dashboard
         </button>
-        <button class="add-foapa-button" @click="updateFoapa">
+        <button class="add-foapa-button" @click="saveFOAPAs">
           Save FOAPAs
         </button>
       </div>
@@ -37,10 +37,11 @@ let foapaDetails = ref<FoapaData[]>([]);
 let successMessage = ref<string>("");
 let errorMessage = ref<string>("");
 let loadingMessage = ref<string>("");
+
 function retrieveUserFoapaDetails() {
   axios
     .get(
-      "https://udm-reimbursement-project.onrender.com/api/retrieveFoapaDetails"
+      `${import.meta.env.VITE_API_URL}/api/retrieve-foapa-details`
     )
     .then((res) => {
       foapaDetails.value = res.data;
@@ -51,26 +52,22 @@ function retrieveUserFoapaDetails() {
     });
 }
 
-function updateFoapa() {
+function saveFOAPAs() {
   successMessage.value = "";
   errorMessage.value = "";
   loadingMessage.value = "Updating FOAPA details...";
   axios
     .post(
-      "https://udm-reimbursement-project.onrender.com/api/updateFoapaDetails",
-      {
-        foapaDetails: foapaDetails.value,
-      }
+      `${import.meta.env.VITE_API_URL}/api/update-foapa-details`,
+      foapaDetails.value
     )
-    .then((res) => {
+    .then(() => {
       loadingMessage.value = "";
-      successMessage.value = res.data.message;
-      // alert(res.data.message);
-      // router.push("/dashboard");
+      successMessage.value = "FOAPA details saved successfully";
     })
     .catch((err) => {
       console.log(err);
-      errorMessage.value = err.response.data.message;
+      errorMessage.value = err.response?.data || "An error has occured, please try again";
     });
 }
 
