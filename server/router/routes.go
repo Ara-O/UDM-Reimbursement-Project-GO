@@ -3,6 +3,8 @@ package router
 import (
 	"os"
 
+	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/account"
+	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/dashboard"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/foapa"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/login"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/registration"
@@ -40,9 +42,17 @@ func DefineRoutes(r *chi.Mux) {
 		r.Use(jwtauth.Verifier(tokenAuth))
 		r.Use(jwtauth.Authenticator)
 
+		// FOAPA
 		r.Get("/api/retrieve-foapa-details", foapa.RetrieveFoapaDetails)
 		r.Get("/api/retrieve-account-numbers", foapa.RetrieveAccountNumbers)
 		r.Post("/api/update-foapa-details", foapa.UpdateFoapaDetails)
 		r.Post("/api/delete-foapa-detail", foapa.DeleteFoapaDetail)
+
+		// Dashboard
+		r.Get("/api/retrieve-user-information-summary", dashboard.RetrieveUserInformationSummary)
+
+		// Account
+		r.Get("/api/retrieve-account-information", account.RetrieveAccountInformation)
+		r.Post("/api/update-account-information", account.UpdateAccountInformation)
 	})
 }

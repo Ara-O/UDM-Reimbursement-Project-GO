@@ -11,7 +11,6 @@ import (
 )
 
 func RetrieveAccountNumbers(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("baaaaak")
 	db := database.GetMongoDbConnection()
 
 	coll := db.Database("udm-go").Collection("foapa-account-numbers")

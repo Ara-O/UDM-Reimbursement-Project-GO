@@ -6,7 +6,7 @@ export type UserData = {
   department: string;
   mailing_address: string;
   phone_number: number | null;
-  password: string;
+  password?: string;
   postal_code: string;
   city: string;
   state: string;
@@ -23,19 +23,6 @@ export type UserDataPreVerification = {
   department: string;
 };
 
-export type UserDataAcct = {
-  firstName: string;
-  lastName: string;
-  workEmail: string;
-  employmentNumber: string;
-  department: string;
-  mailingAddress: string;
-  phoneNumber: string;
-  postalCode: string;
-  city: string;
-  state: string;
-  country: string;
-};
 
 export type FoapaData = {
   fund: string;

@@ -3,7 +3,7 @@
     <!-- FOAPA numbers section -->
     <foapa-numbers></foapa-numbers>
     <section class="reimbursement-section">
-      <h3>Welcome {{ userInfo.firstName }}</h3>
+      <h3>Welcome {{ userInfo.first_name }}</h3>
       <router-link to="/profile-page">
         <img src="../assets/user-icon.png" alt="User help" class="user-icon" /></router-link>
       <br />
@@ -71,16 +71,16 @@
       </div>
       <div class="user-information-wrapper">
         <div>
-          <h3>Full Name: {{ userInfo.firstName }} {{ userInfo.lastName }}</h3>
+          <h3>Full Name: {{ userInfo.first_name }} {{ userInfo.last_name }}</h3>
         </div>
         <div>
-          <h3>Work Email: {{ userInfo.workEmail }}</h3>
+          <h3>Work Email: {{ userInfo.work_email }}</h3>
         </div>
         <div>
-          <h3>Employment Number: {{ userInfo.employmentNumber }}</h3>
+          <h3>Employment Number: {{ userInfo.employment_number }}</h3>
         </div>
         <div>
-          <h3>Phone Number: {{ formatPhoneNumber(userInfo.phoneNumber) }}</h3>
+          <h3>Phone Number: {{ formatPhoneNumber(userInfo.phone_number) }}</h3>
         </div>
       </div>
       <router-link to="/account" style="font-size: 14px">Manage account information</router-link>
@@ -119,18 +119,14 @@ const searchValue = ref<string>("");
 
 type SortParameters = "" | "Date" | "Name" | "Status" | "Cost";
 
-type FoapaNumbers = {
-  employmentNumber: number;
-  foapaNumber: string;
-  foapaName: string;
-};
+
 
 type UserData = {
-  firstName: string;
-  lastName: string;
-  workEmail: string;
-  employmentNumber: string;
-  phoneNumber: string;
+  first_name: string;
+  last_name: string;
+  work_email: string;
+  employment_number: string;
+  phone_number: string;
 };
 
 let costFlag = -1,
@@ -139,11 +135,11 @@ let costFlag = -1,
   statusFlag = -1;
 
 let userInfo = ref<UserData>({
-  employmentNumber: "",
-  firstName: "",
-  lastName: "",
-  phoneNumber: "",
-  workEmail: "",
+  employment_number: "",
+  first_name: "",
+  last_name: "",
+  phone_number: "",
+  work_email: "",
 });
 
 let reimbursementTickets = ref<any>([
@@ -166,6 +162,7 @@ function changeView() {
 }
 
 function formatPhoneNumber(phoneNumber: string) {
+  phoneNumber = String(phoneNumber)
   const formattedPhoneNumber = `(${phoneNumber.slice(
     0,
     3
@@ -264,7 +261,7 @@ function deleteReimbursement(id: string) {
 function retrieveUserInformationSummary() {
   axios
     .get(
-      "https://udm-reimbursement-project.onrender.com/api/retrieveUserInformationSummary"
+      `${import.meta.env.VITE_API_URL}/api/retrieve-user-information-summary`
     )
     .then((res) => {
       userInfo.value = res.data;
@@ -272,11 +269,13 @@ function retrieveUserInformationSummary() {
     })
     .catch((err) => {
       console.log(err);
-      if (err.response.status === 401 || err.response.status === 403) {
+      if (err.response.status === 401 || err.response.status === 400) {
         //If JWT is expired, clear the token and go back to signup page
-        alert(err.response.data.message);
+        alert("An error has occured, please log in again");
         localStorage.setItem("token", "");
         router.push("/");
+      } else {
+        alert(err.response?.data || "An error has occured, please try again later")
       }
     });
 }
@@ -321,7 +320,7 @@ onMounted(() => {
     router.push("/");
   } else {
     // TODO: Validate that user actually exists by checking if they exist in faculty
-    // retrieveUserInformationSummary();
+    retrieveUserInformationSummary();
     // retrieveReimbursements();
   }
 });

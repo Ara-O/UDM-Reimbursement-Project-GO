@@ -38,7 +38,7 @@ func DeleteFoapaDetail(w http.ResponseWriter, r *http.Request) {
 	filter := bson.D{primitive.E{Key: "_id", Value: userId}}
 
 	fmt.Println("FIlter", filter)
-	_, err = coll.UpdateOne(context.Background(), filter)
+	_, err = coll.UpdateOne(context.Background(), filter, reqData)
 
 	if err != nil {
 		fmt.Println(err)

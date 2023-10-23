@@ -2,21 +2,13 @@
   <section class="signup-page">
     <section class="left-section">
       <div class="udmercy-logo-wrapper">
-        <img
-          src="../assets/detroit-mercy-logo.png"
-          alt="Detroit mercy logo"
-          class="udmercy-logo"
-          @click="$router.push('/dashboard')"
-        />
+        <img src="../assets/detroit-mercy-logo.png" alt="Detroit mercy logo" class="udmercy-logo"
+          @click="$router.push('/dashboard')" />
       </div>
     </section>
     <section class="right-section">
       <div class="udmercy-logo-wrapper-mobile">
-        <img
-          src="../assets/detroit-mercy-logo.png"
-          alt="Detroit mercy logo"
-          class="udmercy-logo-mobile"
-        />
+        <img src="../assets/detroit-mercy-logo.png" alt="Detroit mercy logo" class="udmercy-logo-mobile" />
       </div>
       <h3 class="signup-title">Detroit Mercy Reimbursement System</h3>
 
@@ -26,47 +18,27 @@
             <div class="input-field">
               <label for="first-name">First Name: </label>
               <span>
-                <Field
-                  type="text"
-                  name="first-name"
-                  :rules="isValidString"
-                  id="first-name"
-                  v-model="accountInfo.firstName"
-                  required
-                />
+                <Field type="text" name="first-name" :rules="isValidString" id="first-name"
+                  v-model="accountInfo.first_name" required />
                 <ErrorMessage name="first-name" class="error-field" />
               </span>
             </div>
             <div class="input-field">
               <label for="last-name">Last Name: </label>
               <span>
-                <Field
-                  :rules="isValidString"
-                  type="text"
-                  name="last-name"
-                  id="last-name"
-                  v-model="accountInfo.lastName"
-                  required
-                />
+                <Field :rules="isValidString" type="text" name="last-name" id="last-name" v-model="accountInfo.last_name"
+                  required />
                 <ErrorMessage name="last-name" class="error-field" />
               </span>
             </div>
             <div class="input-field">
               <label for="work-email">Work Email: </label>
-              <input
-                type="email"
-                name="Work Email"
-                id="work-email"
-                v-model="accountInfo.workEmail"
-                required
-                disabled
-              />
+              <input type="email" name="Work Email" id="work-email" v-model="accountInfo.work_email" required disabled />
             </div>
           </div>
           <div class="input-field-wrapper">
             <div class="input-field">
-              <label for="employment-number" style="padding-top: 0px"
-                >Employment Number:
+              <label for="employment-number" style="padding-top: 0px">Employment Number:
               </label>
               <span style="gap: 0px">
                 <span class="relative">
@@ -75,47 +47,26 @@
                   </span>
                 </span>
                 <span>
-                  <Field
-                    type="text"
-                    name="employment-number"
-                    :rules="isValidNumber"
-                    id="employment-number"
-                    v-model="accountInfo.employmentNumber"
-                    required
-                  />
-                  <ErrorMessage
-                    name="employment-number"
-                    style="font-size: 11px; position: relative"
-                    class="error-field"
-                  />
+                  <Field type="text" name="employment-number" :rules="isValidNumber" id="employment-number"
+                    v-model="accountInfo.employment_number" required />
+                  <ErrorMessage name="employment-number" style="font-size: 11px; position: relative"
+                    class="error-field" />
                 </span>
               </span>
             </div>
             <div class="input-field">
-              <label for="phone-number" class="pt-0" style="padding-top: 0px"
-                >Phone Number:*</label
-              >
+              <label for="phone-number" class="pt-0" style="padding-top: 0px">Phone Number:*</label>
               <span>
-                <Field
-                  type="text"
-                  name="phone-number"
-                  id="phone-number"
-                  :rules="isValidNumber"
-                  v-model="accountInfo.phoneNumber"
-                />
+                <Field type="text" name="phone-number" id="phone-number" :rules="isValidNumber"
+                  v-model="accountInfo.phone_number" />
                 <ErrorMessage name="phone-number" class="error-field" />
               </span>
             </div>
             <div class="input-field">
               <label for="department">Department:</label>
               <span>
-                <Field
-                  name="department"
-                  id="department"
-                  as="select"
-                  :rules="isValidString"
-                  v-model="accountInfo.department"
-                >
+                <Field name="department" id="department" as="select" :rules="isValidString"
+                  v-model="accountInfo.department">
                   <option :value="department" v-for="department in departments">
                     {{ department }}
                   </option>
@@ -128,14 +79,8 @@
             <div class="input-field">
               <label for="country">Country:</label>
               <span>
-                <Field
-                  name="country"
-                  id="country"
-                  as="select"
-                  :rules="isValidString"
-                  v-model="accountInfo.country"
-                  @change="countryChanged"
-                >
+                <Field name="country" id="country" as="select" :rules="isValidString" v-model="accountInfo.country"
+                  @change="countryChanged">
                   <option :value="country.name" v-for="country in countries">
                     {{ country.name }}
                   </option>
@@ -147,15 +92,8 @@
             <div class="input-field">
               <label for="state">State: *</label>
               <span>
-                <Field
-                  name="state"
-                  id="state"
-                  as="select"
-                  :rules="isValidString"
-                  :disabled="accountInfo.country === ''"
-                  v-model="accountInfo.state"
-                  @change="stateChanged"
-                >
+                <Field name="state" id="state" as="select" :rules="isValidString" :disabled="accountInfo.country === ''"
+                  v-model="accountInfo.state" @change="stateChanged">
                   <option :value="state.name" v-for="state in states">
                     {{ state.name }}
                   </option>
@@ -166,14 +104,8 @@
             <div class="input-field">
               <label for="city">City: *</label>
               <span>
-                <Field
-                  name="city"
-                  id="city"
-                  :rules="isNotEmpty"
-                  as="select"
-                  v-model="accountInfo.city"
-                  :disabled="accountInfo.state === ''"
-                >
+                <Field name="city" id="city" :rules="isNotEmpty" as="select" v-model="accountInfo.city"
+                  :disabled="accountInfo.state === ''">
                   <option :value="city.name" v-for="city in cities">
                     {{ city.name }}
                   </option>
@@ -184,45 +116,26 @@
           </div>
           <div class="input-field-wrapper">
             <div class="input-field">
-              <label for="mailing-address" style="padding-top: 0px"
-                >Mailing Address: *</label
-              >
+              <label for="mailing-address" style="padding-top: 0px">Mailing Address: *</label>
               <span>
-                <Field
-                  type="text"
-                  :rules="isValidString"
-                  name="mailing-address"
-                  id="mailing-address"
-                  v-model="accountInfo.mailingAddress"
-                />
+                <Field type="text" :rules="isValidString" name="mailing-address" id="mailing-address"
+                  v-model="accountInfo.mailing_address" />
                 <ErrorMessage name="mailing-address" class="error-field" />
               </span>
             </div>
 
             <div class="input-field">
-              <label for="postal-code" style="padding-top: 0px"
-                >Postal Code: *</label
-              >
+              <label for="postal-code" style="padding-top: 0px">Postal Code: *</label>
               <span>
-                <Field
-                  type="text"
-                  :rules="isValidString"
-                  name="postal-code"
-                  id="postal-code"
-                  v-model="accountInfo.postalCode"
-                />
+                <Field type="text" :rules="isValidString" name="postal-code" id="postal-code"
+                  v-model="accountInfo.postal_code" />
                 <ErrorMessage name="postal-code" class="error-field" />
               </span>
             </div>
           </div>
 
           <div class="continue-buttons">
-            <button
-              class="signup-button"
-              type="button"
-              @click="back"
-              style="margin-top: 0px"
-            >
+            <button class="signup-button" type="button" @click="back" style="margin-top: 0px">
               Dashboard
             </button>
             <button class="signup-button" type="submit" style="margin-top: 0px">
@@ -251,7 +164,7 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import axios from "axios";
 import { onMounted, ref, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { UserDataAcct, AddressDetails } from "../types/types";
+import { UserData, AddressDetails } from "../types/types";
 import { isNotEmpty, isValidNumber, isValidString } from "../utils/validators";
 
 let successMessage = ref<string>("");
@@ -273,18 +186,19 @@ const departments = [
   "Robotics and Mechatronic Systems Engineering",
 ];
 
-let accountInfo = ref<UserDataAcct>({
-  firstName: "",
-  lastName: "",
-  workEmail: "",
+let accountInfo = ref<UserData>({
+  first_name: "",
+  last_name: "",
+  work_email: "",
   department: "",
-  mailingAddress: "",
-  phoneNumber: "",
-  employmentNumber: "",
-  postalCode: "",
+  mailing_address: "",
+  phone_number: null,
+  employment_number: null,
+  postal_code: "",
   city: "",
   state: "",
   country: "",
+  foapa_details: []
 });
 
 const countries = ref<AddressDetails[]>([
@@ -334,10 +248,9 @@ function save() {
 async function retrieveAccountInformation() {
   try {
     let res = await axios.get(
-      "https://udm-reimbursement-project.onrender.com/api/retrieveAccountInformation"
+      `${import.meta.env.VITE_API_URL}/api/retrieve-account-information`
     );
 
-    res.data.employmentNumber = res.data.employmentNumber.replace("T", "");
     accountInfo.value = res.data;
 
     let countriesFromApi = await axios.get(
@@ -346,8 +259,14 @@ async function retrieveAccountInformation() {
 
     countries.value = countriesFromApi.data;
     countryChanged();
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
+
+    if (err?.response?.status === 401) {
+      alert("An error has occured, please log in again");
+      localStorage.setItem("token", "");
+      router.push("/");
+    }
   }
 }
 
