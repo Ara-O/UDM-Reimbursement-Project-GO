@@ -10,7 +10,7 @@ import (
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/registration"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/reimbursement"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/middlewares"
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/jwtauth"
 )
 

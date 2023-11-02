@@ -2,8 +2,8 @@ package application
 
 import (
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/router"
-	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 )
 
