@@ -42,7 +42,7 @@
           <Field placeholder="Select FOAPA to pay for activity with" as="select" class="input-field" name="foapa-field"
             :rules="isNotEmpty" v-model="currentActivity.foapaNumber">
             <option :value="formatUserFoapa(foapaDetail)" v-for="foapaDetail in userFoapaNumbers">
-              {{ foapaDetail.foapaName }}:
+              {{ foapaDetail.foapa_name }}:
               {{ formatUserFoapa(foapaDetail) }}
             </option>
           </Field>
@@ -173,8 +173,8 @@ watch(
     );
 
     if (selectedFoapa.length > 0) {
-      if (selectedFoapa[0].currentAmount != null) {
-        selectedFoapaAmount.value = Number(selectedFoapa[0].currentAmount);
+      if (selectedFoapa[0].current_amount != null) {
+        selectedFoapaAmount.value = Number(selectedFoapa[0].current_amount);
       } else {
         selectedFoapaAmount.value = undefined;
       }
@@ -241,8 +241,7 @@ async function submitActivityForm(values, { resetForm }) {
 function retrieveFoapaDetails() {
   axios
     .get(
-      "https://udm-reimbursement-project.onrender.com/api/retrieveFoapaDetails"
-    )
+      `${import.meta.env.VITE_API_URL}/api/retrieve-foapa-details`)
     .then((res) => {
       userFoapaNumbers.value = res.data;
     })

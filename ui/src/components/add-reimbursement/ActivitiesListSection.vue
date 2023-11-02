@@ -91,14 +91,13 @@ async function addReimbursement() {
         new Date().toISOString()
       );
 
+      console.log(props.currentReimbursement)
+
       await axios.post(
-        "https://udm-reimbursement-project.onrender.com/api/addReimbursement",
-        {
-          reimbursementTicket: props.currentReimbursement,
-        }
+        `${import.meta.env.VITE_API_URL}/api/add-reimbursement`, props.currentReimbursement,
       );
 
-      router.push("/dashboard");
+      // router.push("/dashboard");
     } else {
       alert("Reimbursement Title Missing");
     }

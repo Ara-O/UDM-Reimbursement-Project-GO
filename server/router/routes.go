@@ -8,6 +8,7 @@ import (
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/foapa"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/login"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/registration"
+	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/handlers/reimbursement"
 	"github.com/Ara-Oladipo/UDM-Reimbursement-Project-Go/middlewares"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/jwtauth"
@@ -54,5 +55,8 @@ func DefineRoutes(r *chi.Mux) {
 		// Account
 		r.Get("/api/retrieve-account-information", account.RetrieveAccountInformation)
 		r.Post("/api/update-account-information", account.UpdateAccountInformation)
+
+		//Reimbursement
+		r.Post("/api/add-reimbursement", reimbursement.AddReimbursement)
 	})
 }
